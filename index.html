@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="dark" name="color-scheme"/>
+<meta content="no-referrer" name="referrer"/>
+<meta content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; connect-src 'none'; font-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" http-equiv="Content-Security-Policy"/>
+<title>Dzen Finance — Лаборатория инвестиционного плана 0.2.5</title>
+<style>:root{--bg:#061916;--bg2:#092923;--panel:rgba(9,39,34,.82);--panel2:rgba(14,51,44,.78);--line:rgba(184,232,205,.16);--line-bright:rgba(185,235,205,.33);--text:#f2f7f0;--muted:#a9c7b8;--dim:#719788;--accent:#a8edbe;--accent2:#70bd98;--green:#2f8e69;--gold:#e9c48c;--error:#ffb5a1;--blue:#94d2d6;--shadow:0 18px 60px rgba(0,4,3,.22);--radius:19px;--ft: 'Segoe UI',Inter,'Arial',sans-serif;}
+*{box-sizing:border-box}html{height:100%;background:var(--bg)}body{margin:0;min-height:100vh;color:var(--text);background:var(--bg);font:14px/1.45 var(--ft);-webkit-font-smoothing:antialiased}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}a{color:var(--accent)}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}button:hover{filter:brightness(1.09)}button:active{transform:translateY(1px)}[hidden]{display:none!important}.ambient{position:fixed;z-index:0;inset:0;pointer-events:none;overflow:hidden;background:radial-gradient(ellipse at 75% 15%,#194c3b66,transparent 42%),radial-gradient(ellipse at 15% 70%,#132c4966,transparent 52%),linear-gradient(135deg,#071b17,#081d1a 65%,#071513)}.light{position:absolute;filter:blur(70px);border-radius:50%;animation:slow-light 16s ease-in-out infinite alternate}.light-a{top:-150px;right:-100px;width:600px;height:370px;background:#2b8b5b20}.light-b{bottom:-200px;left:23%;width:520px;height:450px;background:#447e7c16;animation-delay:-7s}.fine-grid{position:absolute;inset:0;opacity:.19;background-image:linear-gradient(#adf4c70e 1px,transparent 1px),linear-gradient(90deg,#adf4c70e 1px,transparent 1px);background-size:35px 35px;mask-image:linear-gradient(110deg,transparent,#000 42%,transparent 96%)}@keyframes slow-light{to{transform:translate(-40px,35px)}}
+.shell{position:relative;z-index:1;height:100dvh;min-height:760px;display:flex;flex-direction:column;padding:0 max(14px,calc((100vw - 2040px)/2));overflow:hidden}.topbar{height:65px;min-height:65px;display:flex;align-items:center;gap:26px;padding:0 18px;border-bottom:1px solid var(--line);background:linear-gradient(95deg,#0d2e28d6,#08201996);backdrop-filter:blur(12px)}.brand{display:flex;align-items:center;gap:11px;min-width:288px}.brand-mark{width:41px;height:41px;display:grid;place-items:center;color:#b2eac3;background:linear-gradient(145deg,#3c7a5b,#0c362d 67%);border:1px solid #bad8b66b;border-radius:12px;box-shadow:inset 0 1px 0 #fff4,0 9px 24px #0005}.brand-mark svg{width:27px;height:26px;filter:drop-shadow(0 2px 3px #0019)}.brand b{display:block;font-size:23px;letter-spacing:-.9px;line-height:1.12}.brand small{font-size:9px;letter-spacing:1.25px;color:var(--muted);font-weight:600}.header-center{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:10px;white-space:nowrap}.pulse-dot,.guide-light{display:inline-block;width:8px;height:8px;background:var(--accent);border-radius:50%;box-shadow:0 0 0 4px #90e0ab14,0 0 15px #5ceba464}.header-actions{margin-left:auto;display:flex;align-items:center;gap:8px}.lab-tag{font-size:10px;letter-spacing:1.15px;color:#c5edcf;border:1px solid #b4e3bd40;border-radius:100px;padding:8px 12px;white-space:nowrap}.icon-button{width:36px;height:36px;border:1px solid var(--line);background:#ffffff0b;border-radius:10px;color:var(--text);font-size:20px}.privacybar{min-height:30px;display:flex;justify-content:center;align-items:center;text-align:center;padding:5px 20px;font-size:11px;letter-spacing:.1px;color:#e8caa1;background:#916c3015;border-bottom:1px solid #c1a36f16}
+.intro{position:relative;min-height:157px;display:grid;grid-template-columns:minmax(0,1fr) minmax(290px,430px);gap:22px;overflow:hidden;background:linear-gradient(110deg,#133c33f0,#164336bd 55%,#0d2e2af5);border:1px solid #c5f8d22a;border-radius:19px;margin:12px 18px 11px;box-shadow:0 17px 33px #0014,inset 0 1px 0 #fff1}.intro-body{z-index:2;position:relative;padding:18px 25px}.intro-caption{display:flex;align-items:center;gap:14px}.eyebrow{color:#a6d9b3;font-weight:700;font-size:10px;letter-spacing:1.8px}.countdown{font-variant-numeric:tabular-nums;color:#c6eac8;font-size:12px;border-left:1px solid #ffffff33;padding-left:13px}.intro h2{font-size:22px;line-height:1.13;font-weight:700;letter-spacing:-.6px;margin:5px 0 6px}.intro p{margin:0;max-width:910px;color:#d4e5d6;font-size:13px;line-height:1.42;min-height:37px}.intro-controls{margin-top:9px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}.button{color:var(--text);background:#ffffff0c;border:1px solid var(--line-bright);padding:8px 12px;min-height:34px;border-radius:10px;font-size:12px;font-weight:600;white-space:nowrap}.button-primary{color:#0b3024;background:linear-gradient(120deg,#b8e9c0,#76cda0);border-color:#b7ebbe;box-shadow:0 4px 21px #a2f1bc20,inset 0 1px 0 #fff9}.button-primary:hover{background:linear-gradient(120deg,#c7f3d0,#8ee1b6)}.button-subtle{background:#ffffff0a}.intro-status{font-size:11px;color:#aacbb3}.intro-track{position:absolute;bottom:0;left:0;right:0;height:4px;background:#3b685b}.intro-track span{display:block;width:0;height:100%;background:linear-gradient(90deg,#86dbaa,#e8d5a7);transition:width .24s}.intro-example{position:relative;z-index:2;align-self:stretch;border-left:1px solid #cef1d528;padding:20px 25px 17px;background:linear-gradient(95deg,#184e3e9c,#0f2d27ad)}.intro-example-heading{font-size:10px;letter-spacing:1.3px;color:#d0e7cc;font-weight:700}.intro-example-number{font-size:36px;font-weight:730;line-height:1.1;letter-spacing:-1.4px;font-variant-numeric:tabular-nums;margin:6px 0 5px;color:#f8fdf3;text-shadow:0 0 22px #d8f9e22f}.intro-example-detail{color:#c3dccf;font-size:12px}.intro-example-chart{height:7px;margin:12px 0 7px;border-radius:99px;overflow:hidden;background:#517a6688;display:flex}.intro-example-chart span{background:linear-gradient(90deg,#bce4c6,#77c69a);transition:width .7s}.intro-example-foot{font-size:10px;color:#a7c8b6}.intro-orbit{position:absolute;right:28%;top:-60px;width:250px;height:250px;border:1px solid #baf2d51b;border-radius:50%;box-shadow:0 0 0 37px #a0dcab0c,0 0 0 77px #abd9ad06;pointer-events:none}.orb-core{position:absolute;top:72px;left:72px;width:106px;height:106px;background:conic-gradient(from 28deg,#5eac85,#0b4e3d,#bce3bc,#3b936e,#5eac85);border-radius:50%;filter:blur(.5px);opacity:.17;box-shadow:0 0 40px #b3e7c044}.intro-restore{min-height:48px;margin:9px 18px;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:12px;color:var(--muted);background:#0b2824aa}
+.workspace{flex:1;min-height:0;display:grid;grid-template-columns:333px minmax(455px,1fr) 312px;gap:11px;padding:0 18px 12px}.panel,.glass{background:linear-gradient(152deg,rgba(22,59,51,.91),rgba(8,34,30,.88));border:1px solid var(--line);box-shadow:var(--shadow),inset 0 1px 0 #ffffff09;border-radius:var(--radius)}.control-panel,.guide-panel{min-height:0;overflow-y:auto;padding:19px 17px 20px;scrollbar-color:#3e795e transparent;scrollbar-width:thin}.panel-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:9px;margin-bottom:13px}.panel-heading h2{font-size:22px;letter-spacing:-.8px;margin:3px 0 0;line-height:1.2}.icon-medal{font-size:22px;color:#c6e3bd;display:grid;place-items:center;width:35px;height:35px;border:1px solid #b3d5c33f;border-radius:50%;box-shadow:inset 0 1px 7px #9bd3ab22}.scenario-choice{display:grid;grid-template-columns:1fr 1fr;gap:7px}.scenario{border:1px solid var(--line);color:var(--muted);background:#ffffff08;border-radius:10px;padding:11px 5px;font-size:12px;min-height:43px;font-weight:700}.scenario span{display:inline-block;font-size:9px;opacity:.75;margin-right:5px}.scenario.active{color:#d7f6d8;background:linear-gradient(140deg,#2d7455aa,#3a866473);border-color:#9be2ad6b}.scenario-description{font-size:12px;color:var(--muted);margin:12px 0 13px;min-height:49px}.form-grid{display:grid;grid-template-columns:1fr;gap:9px}.field{min-width:0}.field label{font-size:12px;color:#d5e9db;font-weight:650;display:block;margin-bottom:5px}.field small{font-size:10px;color:var(--dim);display:block;margin-top:4px}.input-currency,.pct-input{height:40px;background:linear-gradient(110deg,#041d19c2,#0e352d96);border:1px solid #a9d6b93c;border-radius:10px;display:flex;align-items:center;overflow:hidden}.input-currency:focus-within,.pct-input:focus-within{border-color:#a7e8bba3;box-shadow:0 0 0 3px #99e6aa14}.input-currency span{font-size:16px;font-weight:700;color:#9cd5ac;padding-left:12px;padding-right:4px}.input-currency input,.pct-input input{width:100%;height:100%;min-width:0;border:0;outline:0;background:none;color:#f7fff5;font-size:20px;font-weight:700;letter-spacing:.15px;padding:4px 12px 4px 3px;font-variant-numeric:tabular-nums}.pct-input input{font-size:17px;text-align:left;padding-left:10px}.pct-input span{color:#a0c8ac;padding-right:11px}.field select{width:100%;height:37px;border:1px solid #a6dcb32e;border-radius:9px;background:#102d29;color:#d4e9d8;padding:0 9px}.section-rule{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);font-weight:700;font-size:12px;padding-top:10px;margin:12px 0 9px;color:#e2f5e6}.help-icon{margin-left:2px;width:17px;height:17px;padding:0;border:1px solid #5ca58473;color:#afdfbd;background:#254f3e75;border-radius:50%;font-size:10px;line-height:15px;text-align:center;vertical-align:middle}.help-icon:hover{background:#366b51}.horizon-inputs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.horizon-inputs label{font-size:10px;color:var(--muted)}.horizon-inputs input{display:block;min-width:0;width:100%;margin-top:4px;padding:8px 10px;height:37px;background:#06231d;color:var(--text);font-size:16px;font-weight:700;border:1px solid #a9d6b93c;border-radius:9px}.primary-field{margin-top:10px}.triple-params{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.triple-params .field label{font-size:10px;min-height:32px;line-height:1.26}.micro-note{font-size:10px;color:#a1bcb0;line-height:1.42;margin:7px 0}.risk-field{margin-top:10px}.risk-field select{font-size:12px}.basis-field{margin:12px 0}.chipgroup{display:grid;grid-template-columns:1fr 1fr;gap:6px}.chip{min-height:36px;padding:7px 8px;border:1px solid var(--line);border-radius:9px;background:#ffffff08;color:#b3d3c0;font-size:11px}.chip.active{background:#316b54b3;color:#e7f9eb;border-color:#abe7b784}.form-actions{margin-top:14px;display:flex;gap:8px}.recalc{flex:1;font-size:14px;min-height:43px}.recalc span{font-size:19px;vertical-align:-2px}.form-actions .button-subtle{flex-shrink:0}.form-error{background:#782b243d;border:1px solid #c88475a6;border-radius:9px;padding:8px 10px;margin-top:9px;color:#ffd0c7;font-size:12px}.dirty-indicator{margin-top:10px;padding:8px;border:1px solid #c9dbb11a;border-radius:9px;color:#a3c8ad;font-size:10px;text-align:center}.dirty-indicator.dirty{color:#f6d397;background:#9c653c24;border-color:#e9be8c3d}
+.center-panel{min-height:0;overflow-y:auto;padding:5px 4px 16px;scrollbar-width:thin;scrollbar-color:#3e795e transparent}.center-heading{display:flex;align-items:center;gap:8px;justify-content:space-between;padding:10px 10px 0}.center-heading h1{font-size:26px;line-height:1.14;margin:3px 0 0;letter-spacing:-1px}.result-badge{font-size:10px;color:#d7f5dc;border:1px solid #9dd6aa46;border-radius:30px;padding:6px 11px;display:flex;align-items:center;gap:8px;white-space:nowrap}.result-badge.await{color:#f5d59f;border-color:#e9be8c55}.result-badge.await .pulse-dot{background:#e9be8c}.output-note{font-size:12px;color:var(--muted);margin:8px 10px 13px;max-width:850px}.horizon-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-bottom:10px}.horizon-card{position:relative;overflow:hidden;min-height:156px;background:linear-gradient(145deg,#153f36dd,#092921db);border:1px solid #9bccad27;border-radius:16px;padding:14px 14px 10px;box-shadow:inset 0 1px 0 #ffffff10,0 13px 28px #010b0730}.horizon-card.primary{background:linear-gradient(140deg,#205746f2,#15513eeb 80%);border-color:#a3e0af8b;box-shadow:inset 0 1px 0 #ffffff18,0 8px 26px #3db78c13}.horizon-card::after{content:'';position:absolute;right:-26px;top:-27px;width:100px;height:100px;border-radius:50%;border:1px solid #d5e8cf14;box-shadow:0 0 0 15px #b3e1bc07;pointer-events:none}.horizon-label{display:flex;align-items:center;justify-content:space-between;color:#c5eccf;font-size:11px;font-weight:700}.horizon-badge{font-size:9px;color:#dff2d9;background:#ffffff19;padding:3px 6px;border-radius:20px}.horizon-big{font-size:clamp(20px,2vw,33px);font-weight:750;letter-spacing:-1.25px;font-variant-numeric:tabular-nums;margin:10px 0 2px;white-space:nowrap}.horizon-small{font-size:11px;color:#adc8b9}.horizon-divider{border:0;border-top:1px solid #c9eec820;margin:10px 0 8px}.horizon-income{display:flex;gap:4px;align-items:baseline;color:#c7f5d1;font-weight:700;font-size:19px;letter-spacing:-.3px;font-variant-numeric:tabular-nums}.horizon-income small{font-size:10px;font-weight:400;color:#b7cebf}.chart-panel{padding:15px 18px;margin-bottom:10px}.chart-head{display:flex;align-items:center;gap:10px;justify-content:space-between}.chart-head h3,.mini-chart h3{font-size:15px;margin:0;letter-spacing:-.2px}.subline,.mini-title span{color:var(--dim);font-size:10px}.chart-hover{font-size:10px;color:#e5dfbc;white-space:nowrap}.chart-wrap{height:200px;position:relative;margin:7px 0 0}.chart-wrap svg{display:block;height:100%;width:100%;overflow:visible}.chart-legend{display:flex;gap:15px;flex-wrap:wrap;margin-top:5px;font-size:10px;color:#b9d3c0}.legend-dot{display:inline-block;height:7px;width:7px;border-radius:50%;margin-right:5px}.legend-nominal{background:#b3f8c9}.legend-real{background:#e7c991}.legend-contrib{background:#83a9b6}.lower-charts{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}.mini-chart{padding:12px 14px;min-height:128px;overflow:hidden}.mini-title{display:flex;justify-content:space-between;align-items:baseline;gap:7px;margin-bottom:9px}.mini-title h3{font-size:13px}.mini-title span{text-align:right;font-size:9px;max-width:45%}.composition-bar{display:flex;border-radius:9px;overflow:hidden;height:35px;border:1px solid #c6f0d533}.composition-bar div{min-width:1px}.bar-legend{display:flex;gap:9px;margin-top:11px;justify-content:space-between}.bar-legend-item{font-size:10px;color:var(--muted)}.bar-legend-item b{display:block;color:var(--text);font-size:13px;margin-top:2px}.bar-legend-item i{display:inline-block;width:7px;height:7px;margin-right:4px;border-radius:2px}.income-bars{display:flex;align-items:end;justify-content:space-around;height:89px;gap:12px;padding:5px 0 16px}.income-group{flex:1;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end;position:relative}.income-pair{width:100%;height:100%;display:flex;align-items:flex-end;justify-content:center;gap:5px}.income-pair i{display:block;width:min(35%,25px);border-radius:5px 5px 1px 1px;min-height:2px}.income-label{font-size:9px;color:var(--dim);position:absolute;bottom:-16px;white-space:nowrap}.contrib-svg{width:100%;height:75px;display:block}.portfolio-row{display:flex;align-items:center;gap:14px}.donut{flex-shrink:0;width:83px;height:83px;border-radius:50%;background:conic-gradient(#6cc9a0 0 50%,#b3d2ae 50% 80%,#d2bb82 80% 95%,#648c9d 95% 100%);position:relative;box-shadow:inset 1px 2px 7px #fff3,0 6px 20px #0003}.donut::after{content:'Пример';position:absolute;inset:19px;background:#0e332b;border:1px solid #ffffff2e;border-radius:50%;display:grid;place-items:center;font-size:10px;color:#a3c9ad}.portfolio-labels{display:grid;grid-template-columns:1fr 1fr;gap:5px 10px;flex:1}.portfolio-labels span{font-size:10px;color:var(--muted);white-space:nowrap}.portfolio-labels i{width:7px;height:7px;display:inline-block;margin-right:5px;border-radius:2px}.portfolio-labels b{color:#d2e9d6}.disclaimer{padding:8px 9px 20px;color:#9fb8aa;font-size:10px;line-height:1.5}.guide-panel{display:flex;flex-direction:column;padding:16px 13px}.guide-heading{margin-bottom:8px}.guide-heading h2{font-size:20px}.guide-light{margin:8px 4px}.assistant-banner{font-size:10px;color:#bfdaa9;background:#244e393f;padding:9px 10px;border:1px solid #abd6ba28;border-radius:10px}.assistant-thread{flex:1;min-height:125px;max-height:270px;overflow:auto;display:flex;flex-direction:column;gap:9px;padding:13px 3px;scrollbar-width:thin;scrollbar-color:#427b64 transparent}.bubble{font-size:12px;line-height:1.45;border:1px solid #c3e3c51f;border-radius:12px;padding:9px 10px;white-space:pre-wrap;max-width:97%;overflow-wrap:anywhere}.bubble.assistant{align-self:flex-start;background:#174b3b82;color:#e1f1e7;border-top-left-radius:3px}.bubble.user{align-self:flex-end;background:#9ee0b622;color:#d2e8d5;border-top-right-radius:3px}.bubble .who{display:block;font-size:9px;letter-spacing:.7px;color:#99d0aa;margin-bottom:4px;font-weight:700}.quick-prompts{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 7px}.quick-prompts button{font-size:10px;padding:5px 7px;min-height:26px;border:1px solid var(--line);background:#ffffff07;color:#c9dfd2;border-radius:20px}.chat-form{display:flex;gap:6px;border:1px solid #a8dcb23f;border-radius:10px;background:#061d19;padding:4px}.chat-form input{height:30px;flex:1;min-width:0;border:0;outline:0;background:none;padding:4px 7px;color:var(--text);font-size:12px}.chat-form button{border:0;color:#0e3428;background:#a7e3b9;border-radius:7px;width:32px;font-size:16px}.history-box{margin-top:14px;border-top:1px solid var(--line);padding-top:13px}.history-box .micro-note{margin:4px 0 9px}.history-items{max-height:190px;min-height:55px;overflow:auto;scrollbar-width:thin;scrollbar-color:#427b64 transparent}.history-item{display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid #cde7cf20;border-radius:9px;padding:7px 8px;margin-bottom:6px;background:#ffffff06}.history-item .info{font-size:10px;color:var(--muted)}.history-item .info strong{color:#e2f6e7;display:block;font-size:11px}.history-item button{padding:5px 8px;border:1px solid var(--line);border-radius:8px;color:#daeadc;background:#25503c;font-size:10px}.history-actions{display:flex;gap:5px;margin-top:9px}.history-actions button{white-space:normal;flex:1;font-size:10px;min-height:33px;padding:6px 7px}.footerbar{height:31px;min-height:31px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;color:#85ab9b;font-size:10px;padding:0 25px;background:#071b17b3}
+.dialog-inner{padding:25px;background:linear-gradient(145deg,#103b30,#08241e)}dialog{border:1px solid #a6d8b65f;border-radius:18px;background:#102e27;color:var(--text);padding:0;width:min(540px,calc(100vw - 32px));box-shadow:0 30px 100px #0009}dialog::backdrop{background:#020e0bd0;backdrop-filter:blur(6px)}.dialog-top{display:flex;align-items:center;justify-content:space-between}.dialog-top h2{margin:0 0 12px;font-size:21px}.dialog-inner p{color:var(--muted);font-size:13px}.dialog-inner textarea{width:100%;border:1px solid var(--line-bright);background:#09251f;color:#f2f7f0;border-radius:9px;padding:12px;resize:vertical}.toast{position:fixed;bottom:48px;left:50%;z-index:20;transform:translateX(-50%);padding:12px 19px;background:#d5edcf;color:#153a2c;font-weight:700;border-radius:11px;box-shadow:0 9px 40px #0008;max-width:90vw}.toast[hidden]{display:none}
+@media(min-width:1820px){.workspace{grid-template-columns:370px minmax(560px,1fr) 344px}.control-panel{padding:20px 22px}.guide-panel{padding:19px 18px}.intro{grid-template-columns:minmax(0,1fr) minmax(300px,460px)}.chart-wrap{height:215px}.horizon-card{min-height:168px}.assistant-thread{max-height:340px}}
+@media(max-width:1360px){.workspace{grid-template-columns:296px minmax(470px,1fr) 283px;gap:9px;padding:0 11px 11px}.intro{margin-left:11px;margin-right:11px}.control-panel{padding:17px 11px}.guide-panel{padding:14px 10px}.horizon-big{font-size:clamp(17px,1.9vw,26px)}.horizon-income{font-size:16px}.mini-title span{display:none}.chart-wrap{height:175px}.center-heading h1{font-size:23px}.header-center{display:none}.intro h2{font-size:20px}.intro p{font-size:12px}}
+@media(max-width:1120px){.shell{height:auto;min-height:100vh;overflow:visible}.workspace{display:grid;grid-template-columns:minmax(280px,.85fr) minmax(400px,1.5fr);align-items:start}.control-panel,.guide-panel,.center-panel{overflow:visible}.guide-panel{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:12px}.guide-heading,.assistant-banner,.quick-prompts,.chat-form{grid-column:1}.assistant-thread{grid-column:1;grid-row:3/5}.history-box{grid-column:2;grid-row:1/6;margin:0;border-top:0;padding-top:0}.center-panel{padding:3px}.footerbar{min-height:40px}.intro{grid-template-columns:1fr 300px}}
+@media(max-width:760px){.workspace{display:block}.control-panel,.center-panel,.guide-panel{margin-bottom:14px}.guide-panel{display:block}.intro{display:block}.intro-example{display:none}.intro-body{padding:14px}.intro{min-height:unset}.topbar{height:auto;min-height:64px}.brand{min-width:0}.brand b{font-size:19px}.header-actions{gap:4px}.lab-tag{display:none}.privacybar{font-size:10px}.horizon-cards{grid-template-columns:1fr}.lower-charts{grid-template-columns:1fr}.horizon-big{font-size:26px}.center-panel{overflow:visible}}
+@media(prefers-reduced-motion:reduce){*,*::after,*::before{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
+
+/* Desktop dashboard: visible action bar and four compact charts together */
+.control-panel{display:flex;flex-direction:column;overflow:hidden}
+.control-panel>.panel-heading{flex:none;margin-bottom:11px}
+.controls-scroll{min-height:0;flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#427b64 transparent;padding-right:5px}
+.controls-bottom{flex:none;margin-top:9px;padding:9px 2px 0;background:linear-gradient(#0d3029,#0a2823);border-top:1px solid var(--line)}
+.controls-bottom .form-actions{margin-top:0}
+.controls-bottom .dirty-indicator{margin-top:6px;padding:6px}
+.form-grid{grid-template-columns:1fr 1fr;gap:8px}
+.form-grid .field label{font-size:10px;min-height:31px;line-height:1.25}
+.form-grid .input-currency input{font-size:18px}
+.controls-scroll .risk-field{margin-bottom:4px}
+.all-minis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:9px}
+.all-minis>.lower-charts{display:contents}
+.all-minis .mini-chart{min-width:0;min-height:125px;padding:10px 11px}
+.all-minis .mini-title{min-height:34px;align-items:flex-start}
+.all-minis .mini-title h3{font-size:12px;line-height:1.2}
+.all-minis .mini-title span{display:none}
+.all-minis .bar-legend{gap:3px}
+.all-minis .bar-legend-item{font-size:9px}
+.all-minis .bar-legend-item b{font-size:11px}
+.all-minis .portfolio-row{gap:6px}
+.all-minis .donut{width:67px;height:67px}
+.all-minis .donut:after{inset:15px;font-size:9px}
+.all-minis .portfolio-labels{grid-template-columns:1fr;gap:3px}
+.all-minis .portfolio-labels span{font-size:9px}
+.all-minis .income-bars{height:69px}
+.all-minis .chart-legend{font-size:9px}
+.all-minis .contrib-svg{height:65px}
+.all-minis .mini-chart .micro-note{font-size:9px}
+@media(min-width:1530px){.chart-wrap{height:170px}.horizon-card{min-height:152px}.intro{min-height:147px}.intro-body{padding:15px 23px}.intro-example{padding:16px 21px}.chart-panel{padding:12px 16px}.center-heading h1{font-size:24px}}
+@media(max-width:1600px){.all-minis{grid-template-columns:repeat(2,minmax(0,1fr))}.all-minis .mini-chart{min-height:125px}.all-minis .portfolio-labels{grid-template-columns:1fr 1fr}}
+@media(max-width:1120px){.control-panel{overflow:visible;display:block}.controls-scroll{overflow:visible}.controls-bottom{position:sticky;bottom:0;z-index:2}.all-minis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.form-grid{grid-template-columns:1fr}.form-grid .field label{min-height:auto}}
+
+.chart-tools{display:flex;align-items:center;gap:12px}.chart-toggle{border:1px solid #8dbda13d;border-radius:9px;padding:3px;display:flex;gap:3px;background:#ffffff0a}.chart-toggle button{font-size:10px;min-height:26px;padding:4px 8px;background:transparent;border:0;border-radius:6px;color:#b3d6c2}.chart-toggle button.active{background:#3b7e5f;color:#f2fff4}.chart-toggle button:focus-visible{outline:2px solid #b5e9c2;outline-offset:1px}@media(max-width:1360px){.chart-tools{gap:7px}.chart-toggle button{padding:3px 6px}.chart-hover{display:none}}
+
+.next-step{border-left:2px solid #b9e4aa;background:#b7e6bf0d;border-radius:0 8px 8px 0;color:#cde4cf;font-size:11px;line-height:1.42;padding:8px 10px;margin-top:8px} 
+
+/*
+ * Dzen Finance Entry Lab — editorial desktop redesign.
+ * Visual layer only. The financial model, inputs, DOM IDs, event wiring,
+ * all copy and all application code are preserved from Entry Lab 0.2.
+ * Principles: one dominant information area, high typographic contrast,
+ * visible controls and active states, restrained decoration, useful whitespace.
+ */
+:root{
+  --bg:#eef2ed; --bg2:#f6f8f4;
+  --panel:#ffffff; --panel2:#fafcf9;
+  --line:#d9e3db; --line-bright:#adbfaf;
+  --text:#1a2b25; --muted:#566c5f; --dim:#697d71;
+  --accent:#205e45; --accent2:#3d8867; --green:#267b59;
+  --gold:#946c31; --error:#ae443e; --blue:#4f8194;
+  --shadow:0 2px 12px rgba(22,51,38,.055); --radius:13px;
+  --ft:'Segoe UI',Arial,Helvetica,sans-serif;
+}
+html,body{background:var(--bg);color:var(--text)}
+body{font:14px/1.45 var(--ft);letter-spacing:0;-webkit-font-smoothing:antialiased}
+button{transition:background-color .14s,border-color .14s,box-shadow .14s}
+button:hover{filter:none}
+button:active{transform:none}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #79b798;outline-offset:2px}
+.ambient{background:linear-gradient(110deg,#edf1ec,#f6f8f5 55%,#edf1ee)}
+.light,.fine-grid{display:none}
+.shell{padding:0 max(10px,calc((100vw - 2200px)/2));min-height:780px}
+.topbar{
+  height:64px;min-height:64px;padding:0 23px;gap:28px;
+  background:#fff;border-bottom:1px solid #d5e2d8;backdrop-filter:none;
+}
+.brand{gap:12px;min-width:310px}
+.brand-mark{width:38px;height:38px;border-radius:9px;color:#f5fff7;background:#195d42;border:1px solid #195d42;box-shadow:none}
+.brand-mark svg{width:26px;height:25px;filter:none}
+.brand b{font-size:22px;letter-spacing:-.7px;color:#143f2d;font-weight:730}
+.brand small{font-size:10px;letter-spacing:1.05px;color:#587464;font-weight:700;margin-top:3px}
+.header-center{color:#6a7e73;font-size:12px;font-weight:500}
+.pulse-dot,.guide-light{background:#308060;box-shadow:0 0 0 3px #e1f0e4}
+.lab-tag{color:#365a45;background:#eef5ef;border:1px solid #d4e5d8;border-radius:6px;font-size:10px;font-weight:700;padding:8px 10px;letter-spacing:.7px}
+.icon-button{background:#fff;color:#315344;border:1px solid #d1e0d4;border-radius:7px;width:36px;height:36px;font-size:19px}
+.icon-button:hover{background:#eff6f1;border-color:#91baa0}
+.privacybar{color:#72654a;background:#f8f5eb;border-bottom:1px solid #e9e5d5;font-size:11px;min-height:29px;line-height:1.25}
+
+/* Welcome explains the task, not competes with the dashboard. */
+.intro{
+  min-height:146px;grid-template-columns:minmax(0,1fr) minmax(275px,340px);
+  gap:0;background:#153f30;border:1px solid #1b513d;border-radius:12px;
+  margin:14px 18px 14px;box-shadow:0 3px 12px rgba(23,65,47,.1)
+}
+.intro-body{padding:18px 23px}
+.intro-caption{gap:13px}
+.eyebrow{color:#497b5a;letter-spacing:1.15px;font-size:10px;font-weight:750}
+.intro .eyebrow{color:#9fdab7}
+.countdown{color:#d9e9df;font-size:12px}
+.intro h2{font-size:22px;letter-spacing:-.35px;line-height:1.17;margin:6px 0 7px;color:#fff}
+.intro p{font-size:13px;line-height:1.5;color:#e0eae4;max-width:820px;min-height:34px}
+.intro-controls{margin-top:8px;gap:8px}
+.button{min-height:37px;border-radius:7px;border:1px solid #bdd2c3;padding:8px 12px;background:#fff;color:#244936;font-size:12px;font-weight:700;box-shadow:none}
+.button:hover{background:#eef6f0;border-color:#77a787}
+.button-primary{background:#215c43;color:#fff;border-color:#215c43;box-shadow:none}
+.button-primary:hover{background:#154c35;border-color:#154c35;color:#fff}
+.intro .button-primary{background:#d9f0dc;color:#123c2a;border-color:#d9f0dc}
+.intro .button-primary:hover{background:#ebfae8;border-color:#ebfae8}
+.intro .button-subtle{background:transparent;color:#f0f7f0;border-color:#7eae90}
+.intro .button-subtle:hover{background:#ffffff1a;border-color:#e0f4e4}
+.intro-status{color:#c6e0d2;font-size:11px}
+.intro-track{background:#244d3c;height:3px}
+.intro-track span{background:#c8eac9}
+.intro-orbit{width:190px;height:190px;right:26%;top:-50px;opacity:.22;box-shadow:0 0 0 27px #b4e2be0c,0 0 0 65px #b4e2be06}
+.orb-core{top:55px;left:55px;width:80px;height:80px}
+.intro-example{border-left:1px solid #588b75;padding:17px 22px 14px;background:#1d4938}
+.intro-example-heading{color:#afd1b9;font-size:10px}
+.intro-example-number{color:#fff;font-size:32px;letter-spacing:-.8px;text-shadow:none;margin:5px 0 3px}
+.intro-example-detail{color:#e2eee6;font-size:12px}
+.intro-example-chart{margin:9px 0 6px;background:#58745f;border-radius:4px;height:5px}
+.intro-example-chart span{background:#d1eddb}
+.intro-example-foot{font-size:11px;color:#bbd6c4}
+.intro-restore{margin:12px 18px;padding:9px 16px;border-color:var(--line);color:#4e6759;background:#fff;border-radius:9px}
+
+/* Main three-column grid: working inputs | evidence | help. */
+.workspace{grid-template-columns:344px minmax(0,1fr) 304px;gap:15px;padding:0 18px 12px}
+.panel,.glass{background:#fff;border:1px solid #d8e2da;border-radius:12px;box-shadow:var(--shadow)}
+.control-panel,.guide-panel{scrollbar-color:#c2d4c7 transparent;scrollbar-width:thin}
+.control-panel{padding:18px 18px 0;display:flex;flex-direction:column;overflow:hidden}
+.control-panel>.panel-heading{margin-bottom:12px}
+.panel-heading{gap:8px;margin-bottom:11px}
+.panel-heading h2{font-size:23px;letter-spacing:-.5px;margin:4px 0 0;color:#153a2a}
+.icon-medal{color:#397c5c;border:1px solid #d5e5d9;background:#f4f8f4;border-radius:7px;box-shadow:none;width:34px;height:34px;font-size:19px}
+.controls-scroll{scrollbar-color:#bed0c1 transparent;padding-right:4px}
+.scenario-choice{gap:6px}
+.scenario{min-height:46px;padding:8px 6px;border-radius:7px;border:1px solid #d6e2d9;background:#f5f7f4;color:#476557;font-size:12px;font-weight:720}
+.scenario.active{background:#e2f0e5;color:#144d34;border:1px solid #78a98b;box-shadow:inset 0 0 0 1px #d7ecdd}
+.scenario:hover{background:#eaf4eb}
+.scenario span{font-size:10px;opacity:.7;margin-right:5px}
+.scenario-description{font-size:12px;line-height:1.5;color:#576e61;margin:10px 0 13px;min-height:39px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.form-grid .field label{min-height:33px;font-size:11px;line-height:1.24}
+.field label{font-size:12px;color:#263f32;font-weight:700;margin-bottom:5px}
+.field small{font-size:11px;color:#60786a;margin-top:5px}
+.input-currency,.pct-input{height:44px;border:1px solid #b8ccbc;border-radius:7px;background:#fff}
+.input-currency:focus-within,.pct-input:focus-within{border-color:#2b7853;box-shadow:0 0 0 3px #e4f1e7}
+.input-currency span{font-size:17px;color:#2d6b4a;padding-left:10px;padding-right:4px}
+.input-currency input,.pct-input input{color:#173528;font-size:18px;letter-spacing:0;font-weight:730;padding-right:8px}
+.pct-input input{font-size:17px;padding-left:9px}
+.pct-input span{color:#496c56;padding-right:10px}
+.field select{height:41px;background:#fff;color:#254638;border:1px solid #b8cbbc;border-radius:7px}
+.section-rule{font-size:12px;color:#234e35;border-top:1px solid #d8e5db;margin:13px 0 9px;padding-top:11px}
+.help-icon{height:19px;width:19px;margin-left:2px;border:1px solid #92b5a1;color:#39704e;background:#f1f8f3;border-radius:50%;line-height:17px;font-size:11px;font-weight:750}
+.help-icon:hover{background:#e2f0e5}
+.horizon-inputs{gap:8px}
+.horizon-inputs label{font-size:11px;color:#586e60;font-weight:650}
+.horizon-inputs input{height:39px;background:#fff;color:#19442d;border:1px solid #bdcfc0;border-radius:7px;font-size:17px;font-weight:700}
+.triple-params{gap:8px}
+.triple-params .field label{font-size:11px;min-height:30px;line-height:1.18}
+.micro-note{font-size:11px;color:#60766a;line-height:1.45;margin:8px 0}
+.risk-field{margin-top:11px;margin-bottom:8px}
+.risk-field select{font-size:12px}
+.basis-field{margin:10px 0}
+.chipgroup{gap:7px}
+.chip{min-height:39px;border:1px solid #c8d9cc;border-radius:7px;background:#f7f9f7;color:#4c6d59;font-size:11px}
+.chip.active{border-color:#7ba68b;background:#e8f4e8;color:#15563c;font-weight:750}
+.controls-bottom{margin-top:9px;padding:10px 0 12px;background:#fff;border-top:1px solid #d6e2d9}
+.controls-bottom .form-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.recalc{min-height:45px;font-size:14px;white-space:nowrap}
+.form-actions .button-subtle{min-width:0;white-space:normal}
+.controls-bottom .dirty-indicator{font-size:11px;line-height:1.35;border:none;background:transparent;color:#647b6b;text-align:left;margin-top:4px;padding:3px 0 0}
+.dirty-indicator.dirty{color:#875e2d;background:transparent;border:0}
+.form-error{background:#fff2ee;border:1px solid #eab9ad;color:#9a3630;border-radius:7px;font-size:12px}
+
+/* Result: numbers and charts lead the reading order. */
+.center-panel{min-height:0;padding:0 1px 10px;scrollbar-color:#c6d6c9 transparent}
+.center-heading{padding:4px 4px 0}
+.center-heading h1{font-size:27px;letter-spacing:-.8px;color:#182c22}
+.result-badge{background:#e8f5e9;color:#246045;border:1px solid #c7dfcd;border-radius:6px;padding:7px 10px;font-size:11px;font-weight:700}
+.result-badge.await{color:#8e622e;border-color:#e6d5ae;background:#fbf4e2}
+.output-note{font-size:12px;line-height:1.5;color:#607367;margin:8px 4px 12px;max-width:none}
+.horizon-cards{gap:11px;margin-bottom:11px}
+.horizon-card{border-radius:11px;min-height:146px;padding:14px;background:#fff;border:1px solid #d8e3da;box-shadow:var(--shadow)}
+.horizon-card.primary{background:#e9f4eb;border-color:#8eb59a;box-shadow:0 2px 9px rgba(27,92,60,.08)}
+.horizon-card::after{display:none}
+.horizon-label{font-size:11px;letter-spacing:.25px;color:#4d6c5b;font-weight:750}
+.horizon-badge{color:#2c6542;background:#d6ebda;border:1px solid #c6e1cc;border-radius:4px;font-size:10px;padding:3px 6px}
+.horizon-big{color:#163d2a;font-size:clamp(24px,2.1vw,34px);margin:9px 0 3px;letter-spacing:-.95px;font-weight:750}
+.horizon-small{color:#617667;font-size:11px}
+.horizon-divider{border-top:1px solid #dbe6dd;margin:9px 0}
+.horizon-income{font-size:20px;color:#176442;font-weight:750}
+.horizon-income small{font-size:11px;color:#627867;font-weight:500}
+.chart-panel{padding:15px 17px;margin-bottom:10px}
+.chart-head h3,.mini-chart h3{color:#25392c;font-size:15px;letter-spacing:-.2px}
+.subline,.mini-title span{color:#718075;font-size:11px}
+.chart-wrap{height:198px;margin:7px 0 0}
+.chart-legend{gap:14px;margin-top:7px;font-size:11px;color:#566d5d}
+.chart-hover{color:#4b7654;font-size:11px}
+.chart-toggle{background:#eef3ee;border:1px solid #d6e2d9;border-radius:7px;padding:3px}
+.chart-toggle button{color:#49675a;font-size:11px;border-radius:5px;min-height:27px;padding:5px 9px}
+.chart-toggle button.active{background:#fff;color:#20563b;box-shadow:0 1px 4px #b3c4b57d}
+.chart-wrap svg text,.contrib-svg text{fill:#677b6f !important;font-family:var(--ft)}
+.chart-wrap svg line[stroke="#bad7c221"],.chart-wrap svg line[stroke="#bad7c221"]{stroke:#e2ebe4 !important}
+.chart-wrap svg polyline[stroke="#a9efbd"]{stroke:#217b54 !important}
+.chart-wrap svg polyline[stroke="#efd099"]{stroke:#b17c31 !important}
+.chart-wrap svg polyline[stroke="#88b1bd"]{stroke:#6d8799 !important}
+.chart-wrap svg line[id="hoverLine"]{stroke:#2b7556 !important}
+.chart-wrap svg circle[id="hoverDot"]{fill:#2d7e58 !important}
+.chart-wrap svg polygon{opacity:.6}
+.legend-nominal{background:#217b54}.legend-real{background:#bd8a3b}.legend-contrib{background:#70899b}
+.all-minis{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:8px}
+.all-minis>.lower-charts{display:contents}
+.all-minis .mini-chart{min-width:0;min-height:140px;padding:12px 12px;border-radius:11px}
+.all-minis .mini-title{min-height:34px;margin-bottom:7px;align-items:flex-start}
+.all-minis .mini-title h3{font-size:12px;line-height:1.3}
+.all-minis .mini-title span{display:none}
+.all-minis .bar-legend-item{color:#526c5b;font-size:10px}
+.all-minis .bar-legend-item b{color:#183c28;font-size:12px}
+.all-minis .portfolio-labels span{color:#506b5b;font-size:10px}
+.all-minis .portfolio-labels b{color:#21462f}
+.all-minis .composition-bar{border-color:#c8dbcc;border-radius:5px}
+.all-minis .donut{width:70px;height:70px;box-shadow:none}
+.all-minis .donut:after{inset:16px;background:#fff;color:#55705d;border:1px solid #d6e5d9}
+.all-minis .income-label{color:#627a68;font-size:10px}
+.all-minis .contrib-svg{height:69px}
+.all-minis .mini-chart .micro-note{font-size:10px;color:#64776b}
+.all-minis .mini-chart .micro-note b{color:#245539 !important}
+.disclaimer{padding:9px 4px 12px;color:#65786b;font-size:11px;line-height:1.48}
+
+/* Companion: context, chat, and history are supporting tools. */
+.guide-panel{padding:16px 15px 13px;min-height:0}
+.guide-heading{margin-bottom:8px}
+.guide-heading h2{font-size:21px}
+.guide-light{width:8px;height:8px;margin:8px 4px}
+.assistant-banner{background:#f1f5f0;border:1px solid #d9e5dc;color:#526b58;border-radius:7px;font-size:11px;line-height:1.45;padding:10px}
+.next-step{background:#eaf4ec;border-left:3px solid #2e8059;border-radius:0 5px 5px 0;color:#28563a;font-size:12px;line-height:1.4;padding:10px 11px;margin:10px 0 3px}
+.assistant-thread{min-height:120px;max-height:230px;padding:12px 0 10px;gap:9px;scrollbar-color:#c6d7ca transparent}
+.bubble{max-width:99%;font-size:12px;line-height:1.46;border-radius:8px;padding:10px 11px;color:#294237;border:1px solid #dfe7df}
+.bubble.assistant{background:#f0f5f0;color:#284a36;border-radius:3px 9px 9px 9px}
+.bubble.user{background:#e0eee4;color:#234c35;border-color:#c7dfce;border-radius:9px 3px 9px 9px}
+.bubble .who{font-size:10px;letter-spacing:.6px;color:#46745b;margin-bottom:5px}
+.quick-prompts{gap:6px;margin:2px 0 9px}
+.quick-prompts button{font-size:11px;min-height:30px;background:#fff;border:1px solid #b9cebd;border-radius:6px;padding:6px 9px;color:#325f42}
+.quick-prompts button:hover{background:#eef6ef}
+.chat-form{background:#fff;border:1px solid #b9cdbd;border-radius:7px;padding:4px;gap:6px}
+.chat-form input{color:#274438;height:32px;font-size:12px;padding:5px 9px}
+.chat-form input::placeholder{color:#7d9384}
+.chat-form button{background:#205f46;color:#fff;border-radius:5px;width:35px;font-size:17px}
+.history-box{border-top:1px solid #d8e2d9;padding-top:13px;margin-top:13px}
+.history-box .mini-title h3{font-size:14px}
+.history-items{max-height:160px;scrollbar-color:#c6d5c9 transparent}
+.history-item{border:1px solid #e1e9e1;border-radius:6px;padding:8px;background:#f8faf7}
+.history-item .info{font-size:11px;color:#667b6b}
+.history-item .info strong{color:#23503a;font-size:12px}
+.history-item button{font-size:11px;color:#255a3d;border:1px solid #bfd5c6;background:#fff;border-radius:5px;padding:6px 9px}
+.history-actions{gap:8px;margin-top:10px}
+.history-actions button{font-size:11px;min-height:37px;white-space:normal}
+.footerbar{background:#f5f8f5;border-top:1px solid #d8e3db;color:#66796c;font-size:11px;min-height:29px;padding:0 23px}
+
+/* Dialogs and feedback use same visual semantics. */
+dialog{border:1px solid #c9d9cd;border-radius:12px;background:#fff;color:#243c30;box-shadow:0 24px 80px #163e323d}
+dialog::backdrop{background:#0d261bb0;backdrop-filter:blur(4px)}
+.dialog-inner{background:#fff;padding:28px}
+.dialog-top h2{font-size:23px;color:#234932}
+.dialog-inner p{color:#5d7264;font-size:13px}
+.dialog-inner textarea{background:#fff;color:#274938;border:1px solid #bdcebd;border-radius:7px;padding:12px}
+.toast{background:#1c5d43;color:#fff;border-radius:8px;box-shadow:0 6px 27px #143a292c}
+
+@media(min-width:1820px){
+  .workspace{grid-template-columns:370px minmax(0,1fr) 330px}
+  .control-panel{padding:18px 20px 0}
+  .guide-panel{padding:18px 17px}
+  .intro{grid-template-columns:minmax(0,1fr) 360px}
+  .horizon-card{min-height:152px}
+  .chart-wrap{height:205px}
+  .assistant-thread{max-height:280px}
+}
+@media(max-width:1600px){
+  .workspace{grid-template-columns:305px minmax(0,1fr) 284px;gap:11px;padding:0 12px 10px}
+  .intro,.intro-restore{margin-left:12px;margin-right:12px}
+  .control-panel{padding:15px 13px 0}
+  .guide-panel{padding:14px 12px}
+  .all-minis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .center-heading h1{font-size:24px}
+  .horizon-big{font-size:clamp(20px,2vw,28px)}
+  .chart-wrap{height:200px}
+}
+@media(max-width:1360px){
+  .workspace{grid-template-columns:294px minmax(0,1fr) 270px;gap:10px;padding:0 10px 10px}
+  .intro,.intro-restore{margin-left:10px;margin-right:10px}
+  .header-center{display:none}
+  .intro h2{font-size:19px}
+  .intro p{font-size:12px}
+  .guide-heading h2{font-size:19px}
+  .result-badge{padding:6px 7px}
+  .horizon-big{font-size:22px}
+  .chart-tools{gap:7px}
+  .chart-toggle button{padding:5px 6px}
+}
+@media(max-width:1120px){
+  .shell{height:auto;min-height:100vh;overflow:visible}
+  .workspace{grid-template-columns:minmax(270px,.85fr) minmax(400px,1.5fr)}
+  .control-panel{overflow:visible;display:block;padding-bottom:12px}
+  .controls-scroll{overflow:visible}
+  .controls-bottom{position:sticky;bottom:0;z-index:2;padding:10px;background:#fff;border-top:1px solid #dce6dd}
+  .center-panel,.guide-panel{overflow:visible}
+  .guide-panel{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  .guide-heading,.assistant-banner,.quick-prompts,.chat-form{grid-column:1}
+  .assistant-thread{grid-column:1;grid-row:3/5}
+  .history-box{grid-column:2;grid-row:1/6;margin:0;border-top:0;padding-top:0}
+  .intro{grid-template-columns:1fr minmax(260px,330px)}
+}
+@media(max-width:760px){
+  .workspace{display:block}
+  .control-panel,.guide-panel,.center-panel{margin-bottom:14px}
+  .guide-panel{display:block}
+  .intro{display:block}
+  .intro-example{display:none}
+  .topbar{padding:0 12px}
+  .footerbar{padding:6px 12px}
+  .form-grid{grid-template-columns:1fr}
+  .horizon-cards{grid-template-columns:1fr}
+  .all-minis{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*,*::after,*::before{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* Large desktop: genuinely fit the complete planning picture in one viewport. */
+@media(min-width:1700px) and (min-height:950px){
+  .intro{min-height:132px;margin-top:10px;margin-bottom:10px}
+  .intro-body{padding:12px 23px 13px}
+  .intro h2{font-size:20px;margin:3px 0 5px}
+  .intro p{font-size:12px;line-height:1.35;min-height:0;max-width:1000px}
+  .intro-controls{margin-top:7px}
+  .intro .button{min-height:32px;padding:5px 11px}
+  .intro-example{padding:12px 21px}
+  .intro-example-number{font-size:29px;margin:3px 0}
+  .intro-example-chart{margin:7px 0 4px}
+  .horizon-card{min-height:137px;padding:10px 12px 9px}
+  .horizon-big{margin:5px 0 2px;font-size:30px}
+  .horizon-divider{margin:6px 0}
+  .horizon-income{font-size:18px}
+  .horizon-label{font-size:11px}
+  .chart-panel{padding:11px 15px 9px}
+  .chart-wrap{height:170px}
+  .chart-legend{margin-top:5px}
+  .all-minis .mini-chart{min-height:125px;padding:9px 10px}
+  .all-minis .mini-title{min-height:28px;margin-bottom:5px}
+  .all-minis .composition-bar{height:27px}
+  .all-minis .bar-legend{margin-top:7px}
+  .all-minis .income-bars{height:60px}
+  .all-minis .contrib-svg{height:53px}
+  .all-minis .donut{width:58px;height:58px}
+  .all-minis .donut:after{inset:13px}
+  .all-minis .portfolio-labels span{font-size:9px}
+  .all-minis .mini-chart .micro-note{margin:4px 0 0;line-height:1.28}
+  .disclaimer{font-size:10px;line-height:1.4;padding:5px 4px 8px}
+}
+/* Inputs, including the native option list, use the document's light palette. */
+html{color-scheme:light}
+/* Legible control labels outweigh purely decorative microcopy. */
+.form-grid .field label{font-size:12px}
+.triple-params .field label{font-size:12px}
+.horizon-inputs label{font-size:12px}
+.all-minis .mini-title h3{font-size:13px}
+
+/* 0.2.1 -- two-region, content-first desktop layout. Original calculation/interaction code untouched. */
+:root{--ft:Inter,'Segoe UI',Arial,sans-serif;--ink:#183c2c;--sub:#53685b;--border:#d7e3db;--tint:#f3f7f3;--brand:#1d6246}
+html,body{font-size:16px;line-height:1.5;background:#edf3ee;color:var(--ink)}
+.shell{height:100dvh;min-height:700px;padding:0;max-width:none;overflow:hidden}
+.topbar{height:69px;min-height:69px;padding:0 28px;gap:24px}
+.brand{min-width:0;flex:1}.brand b{font-size:24px;letter-spacing:-.65px}.brand small{font-size:11px;letter-spacing:.55px}
+.brand-mark{width:41px;height:41px}.header-actions{gap:9px;flex:0 0 auto}
+.nav-action{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #c8dcd0;background:#fff;border-radius:8px;padding:9px 14px;min-height:42px;font:650 14px/1.15 var(--ft);color:#23543e;white-space:nowrap}
+.nav-action:hover{background:#eef7ef;border-color:#76a88a}.nav-action span{font-size:17px}
+.nav-strong{color:white;background:#1d6246;border-color:#1d6246}
+.nav-strong:hover{background:#174d38;color:white;border-color:#174d38}
+.nav-feedback{font-size:14px}.lab-tag{font-size:11px;padding:10px 12px}
+.icon-button{height:42px;width:42px;font-size:22px}
+.privacybar{display:block;min-height:0;padding:12px 15px;font-size:13px;line-height:1.6;text-align:left;border:0;color:#526957;background:#f4f8f3}
+.intro-restore{display:none!important}
+.workspace{flex:1;min-height:0;display:grid;grid-template-columns:minmax(358px,385px) minmax(0,1fr);gap:16px;padding:16px 20px 12px;align-items:stretch}
+.panel,.glass{border:1px solid var(--border);box-shadow:0 2px 12px rgba(37,75,49,.045);border-radius:12px}
+.control-panel{padding:21px 22px 0;overflow:hidden;display:flex;flex-direction:column;background:#fff}
+.panel-heading{margin-bottom:14px}.panel-heading h2{font-size:27px;letter-spacing:-.6px}.panel-heading .eyebrow,.center-heading .eyebrow{font-size:12px;letter-spacing:.8px}
+.icon-medal{display:none}
+.controls-scroll{padding-right:5px;overflow-y:auto;scrollbar-color:#b8cfc0 transparent}
+.scenario-choice{gap:7px;margin:0}.scenario{min-height:49px;padding:10px 9px;font-size:14px;line-height:1.3;border-radius:8px}
+.scenario span{font-size:11px}.scenario-description{font-size:14px;line-height:1.5;margin:14px 0 10px;color:#536957}
+.inline-help{background:#f0f7f1;border:1px solid #d7e7da;border-left:4px solid #398760;border-radius:9px;padding:12px 13px;margin:0 0 19px}
+.inline-help-title{font-size:11px;letter-spacing:.7px;font-weight:800;color:#3a7853}
+.inline-help .next-step{background:none!important;border:0!important;color:#294b36!important;margin:6px 0 9px!important;padding:0!important;font-size:14px!important;line-height:1.48!important}
+.inline-help-open{background:none;border:0;border-bottom:1px solid #609a72;padding:1px 0;color:#206044;font-size:13px;font-weight:680}
+.form-grid{gap:12px;grid-template-columns:1fr 1fr}.field label,.form-grid .field label,.triple-params .field label,.horizon-inputs label{color:#2d4938;font-size:14px!important;line-height:1.35;font-weight:650}
+.help-icon{height:24px;width:24px;font-size:12px;border:1px solid #bdcfbf;color:#366b47;background:#f4f8f5}
+.input-currency,.pct-input{min-height:49px;border-radius:8px;border-color:#bdd2c3;background:#fff}
+.input-currency input,.pct-input input{font-size:19px;line-height:1.3;font-weight:650;color:#183b29}
+.input-currency span,.pct-input span{font-size:18px}
+.input-currency input:focus,.pct-input input:focus{outline:none}
+.input-currency:focus-within,.pct-input:focus-within{border-color:#297452;box-shadow:0 0 0 3px #dcefe1}
+.section-rule{margin:20px 0 12px;font-size:14px;font-weight:750;color:#24573b}
+.horizon-inputs{gap:10px}.horizon-inputs label{font-size:13px!important}.horizon-inputs input{min-height:46px;font-size:18px;font-weight:700}
+.triple-params{gap:10px}.triple-params .field label{font-size:12.5px!important;line-height:1.4;min-height:39px;align-items:flex-start}
+.triple-params .pct-input input{font-size:18px}.triple-params .pct-input span{font-size:14px}
+.micro-note{font-size:13px!important;color:#5a6c60!important;line-height:1.5!important}
+.additional-settings{border-top:1px solid #e2ebe2;margin:16px 0 8px;padding:13px 0 0}
+.additional-settings summary{font-size:13px;font-weight:660;color:#476453;cursor:pointer;margin-bottom:8px}
+.additional-settings .risk-field{padding:8px 2px 3px}
+.additional-settings .risk-field select{font-size:14px;min-height:46px}
+.controls-bottom{margin-top:8px;padding:12px 0 14px;box-shadow:0 -8px 12px rgba(255,255,255,.94);background:#fff}
+.form-actions{gap:9px;display:grid;grid-template-columns:1fr 1fr}
+.form-actions .button{min-height:49px;font-size:14px;padding:10px 10px;white-space:normal}
+.form-actions .recalc{background:#176443;color:white;border-color:#176443}.form-actions .recalc:hover{background:#0f5237;color:white}
+.dirty-indicator{font-size:12px;line-height:1.45;margin-top:8px;color:#607264}
+.center-panel{min-width:0;min-height:0;overflow-y:auto;scrollbar-color:#bdd0c1 transparent;padding:4px 3px 12px}
+.center-heading{margin-bottom:13px}.center-heading h1{font-size:30px;letter-spacing:-.8px;margin-top:4px}
+.output-note{font-size:15px;line-height:1.45;color:#607568;margin:0 0 13px;padding:0}
+.result-badge{font-size:12px;padding:8px 11px;white-space:nowrap}
+.horizon-cards{grid-template-columns:1fr 1fr minmax(1.2fr,1.3fr);gap:12px;margin-bottom:14px}
+.horizon-card{padding:19px 20px;min-height:173px;background:#fff;border-radius:12px;display:flex;flex-direction:column}
+.horizon-card.primary{background:#e4f3e8;border-color:#85b59a}
+.horizon-label{font-size:12px;font-weight:730;letter-spacing:.5px;color:#476a52}
+.horizon-big{font-size:clamp(28px,2.5vw,44px)!important;line-height:1.15;letter-spacing:-1.2px;margin:10px 0 5px}
+.horizon-income{font-size:24px}.horizon-income small{font-size:13px}.horizon-small{font-size:12px}.horizon-divider{margin:11px 0}
+.chart-panel{padding:20px 22px 14px;margin-bottom:13px;background:#fff;border-color:#d7e5d9;border-radius:12px}
+.chart-head{align-items:start;gap:12px}.chart-head h3{font-size:22px;letter-spacing:-.5px}.chart-head .subline{font-size:13px;line-height:1.45}
+.chart-tools{flex-wrap:wrap;justify-content:flex-end;gap:10px}.chart-toggle{padding:3px;border-radius:8px;gap:1px;display:flex}
+.chart-toggle button{padding:10px 12px;font-size:14px;min-height:40px;border-radius:6px;font-weight:640}
+.chart-toggle button.active{color:#164b35;background:#fff;box-shadow:0 1px 4px #c1d0c3}
+.chart-hover{font-size:13px;white-space:nowrap;color:#4b7654}
+.chart-wrap{height:330px!important;margin-top:17px}
+.chart-wrap svg{height:100%;width:100%;overflow:visible}
+.chart-wrap svg text,.contrib-svg text{font-size:14px!important}
+.chart-legend{font-size:14px;gap:22px;margin:15px 0 2px;flex-wrap:wrap}
+.capital-composition{padding:18px 22px 16px;border:1px solid #d7e5d9;background:#fff;margin:0 0 11px;border-radius:12px}
+.capital-composition .mini-title{display:flex;align-items:baseline;justify-content:space-between;margin:0 0 11px}
+.capital-composition h3{font-size:19px;letter-spacing:-.4px;color:#1b4530}
+.capital-composition .mini-title span{font-size:13px;color:#627c67}
+.capital-composition .composition-bar{height:40px;margin-top:2px;border-radius:7px;border-color:#b8d4c2}
+.capital-composition .bar-legend{margin-top:13px;gap:17px;justify-content:start}
+.capital-composition .bar-legend-item{font-size:14px;line-height:1.4;color:#506957}
+.capital-composition .bar-legend-item b{font-size:18px;color:#1d4b33}
+.large-extra-chart{background:transparent;border:0;box-shadow:none;border-radius:0;padding:8px 0 0;min-height:335px}
+.large-extra-chart .mini-title{display:none}
+.large-extra-chart .income-bars{height:254px;align-items:flex-end;gap:50px;padding:8px 14px 22px}
+.large-extra-chart .income-bar{min-width:42px;border-radius:6px 6px 0 0}
+.large-extra-chart .income-group{font-size:15px}
+.large-extra-chart .income-label{font-size:14px}
+.large-extra-chart .chart-legend{font-size:14px}
+.large-extra-chart .contrib-svg{width:100%;height:255px}
+.large-extra-chart .micro-note{font-size:15px!important;margin:14px 0}
+.reference-visual{margin:6px 0 8px;padding:8px 1px;color:#537061}
+.reference-visual summary{cursor:pointer;font-size:13px;font-weight:620}
+.reference-visual .mini-chart{padding:14px 17px;margin-top:10px;background:#fff}
+.reference-visual .mini-title h3{font-size:16px}.reference-visual .mini-title span{display:inline;color:#607564;font-size:13px}
+.disclaimer{font-size:13px;line-height:1.55;color:#5d7063;padding:4px 1px 6px}
+.footerbar{font-size:12px;min-height:36px;padding:0 24px;gap:14px;align-items:center}
+.privacy-details{margin-right:auto;position:relative;order:1;font-size:12px}
+.privacy-details summary{cursor:pointer;color:#526c59;text-decoration:underline;text-decoration-color:#b4cabc;text-underline-offset:3px}
+.privacy-details .privacybar{position:absolute;left:0;bottom:27px;max-width:610px;min-width:min(610px,70vw);z-index:30;border:1px solid #d6e4d8;box-shadow:0 8px 35px #1b472c25;border-radius:10px}
+.footerbar>span:first-child{order:0}.footerbar #storageState{order:2;margin-left:auto}
+/* On-demand assistant, history and lesson. No continuous third column. */
+dialog.work-dialog,dialog.side-lesson-dialog{position:fixed;margin:0 0 0 auto;top:0;right:0;bottom:0;left:auto;width:min(480px,96vw);max-width:none;max-height:none;height:100dvh;border-radius:12px 0 0 12px;background:#fff;border:0;padding:0;box-shadow:-18px 0 60px #0b2b1a38;color:#214532;overflow:hidden}
+dialog.side-lesson-dialog{width:min(920px,96vw);height:auto;max-height:calc(100dvh - 70px);top:35px;bottom:auto;right:50%;transform:translateX(50%);border-radius:16px;overflow-y:auto}
+dialog.work-dialog::backdrop,dialog.side-lesson-dialog::backdrop{background:rgba(12,35,22,.48);backdrop-filter:blur(2px)}
+.modal-top{height:87px;background:#f5f9f5;border-bottom:1px solid #dce8de;padding:16px 21px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:10}
+.modal-top .eyebrow{font-size:11px}.modal-top h2{margin:3px 0 0;font-size:22px;line-height:1.2;color:#1b5136}
+.close-dialog{width:43px;height:43px;font-size:28px;line-height:1;color:#41664c;background:#fff;border-radius:8px;border:1px solid #cbdccc}
+.work-dialog .guide-panel{display:flex!important;flex-direction:column!important;grid-column:auto!important;position:static;width:100%;height:calc(100dvh - 87px);max-height:none;overflow:auto;box-shadow:none;border:0;padding:20px;gap:13px}
+.work-dialog .guide-heading{display:none}.work-dialog .assistant-banner{font-size:14px;line-height:1.5;padding:14px;background:#f4f8f4}
+.work-dialog .assistant-thread{max-height:none;min-height:170px;flex:1;overflow-y:auto;margin:0;gap:13px}
+.work-dialog .bubble{font-size:15px;line-height:1.55;padding:13px 14px}.work-dialog .bubble .who{font-size:11px}
+.work-dialog .quick-prompts button{font-size:13px;min-height:39px}.work-dialog .chat-form{min-height:54px;flex:none}
+.work-dialog .chat-form input{height:44px;font-size:15px}.work-dialog .chat-form button{height:44px;width:43px}
+.work-dialog .history-box{padding:24px;margin:0;border:0;overflow-y:auto;height:calc(100dvh - 87px)}
+.work-dialog .history-box .mini-title h3{font-size:18px}
+.work-dialog .history-items{max-height:none;min-height:190px}
+.work-dialog .history-item{padding:14px;margin:8px 0}
+.work-dialog .history-item .info{font-size:14px}.work-dialog .history-item .info strong{font-size:16px}
+.work-dialog .history-item button{font-size:14px;padding:10px 13px}
+.work-dialog .history-actions{display:flex;flex-wrap:wrap;margin-top:15px}
+.work-dialog .history-actions button{font-size:13px;padding:11px}
+.side-lesson-dialog .intro{display:grid;grid-template-columns:minmax(0,1fr) 290px;margin:0;border-radius:0;border:0;box-shadow:none;min-height:315px}
+.side-lesson-dialog .intro-body{padding:31px 30px}.side-lesson-dialog .intro h2{font-size:30px;line-height:1.19}
+.side-lesson-dialog .intro p{font-size:16px;line-height:1.55}
+.side-lesson-dialog .intro-controls{margin-top:24px;gap:10px}.side-lesson-dialog .intro-controls .button{font-size:14px;padding:12px 14px;min-height:44px}
+.side-lesson-dialog .intro-example{padding:33px 21px}.side-lesson-dialog .intro-example-number{font-size:40px}
+.side-lesson-dialog .intro-example-detail,.side-lesson-dialog .intro-example-foot{font-size:14px}
+/* Do not compress the financial interface into tiny typography to fit every possible screen. */
+@media (max-width:1550px){
+ .workspace{grid-template-columns:minmax(330px,350px) minmax(0,1fr);gap:14px;padding:14px 14px 10px}
+ .control-panel{padding:17px 16px 0}.chart-panel{padding:18px}.chart-wrap{height:295px!important}
+ .chart-toggle button{font-size:13px;padding:8px 9px}.horizon-card{padding:16px 14px}
+ .horizon-big{font-size:clamp(26px,2.65vw,38px)!important}.topbar{padding:0 16px}
+ .nav-action{padding:8px 11px;font-size:13px}.lab-tag{display:none}
+ .center-heading h1{font-size:28px}
+}
+@media (max-width:1170px){
+ .workspace{grid-template-columns:315px minmax(0,1fr)}
+ .brand small{display:none}.brand{flex:0 0 auto}.nav-feedback{display:none}
+ .center-heading h1{font-size:25px}.horizon-cards{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+ .horizon-card{padding:12px;min-height:156px}.horizon-big{font-size:25px!important}.horizon-income{font-size:19px}
+ .chart-head{display:block}.chart-tools{justify-content:flex-start;margin-top:10px}.chart-wrap{height:280px!important}
+}
+@media (max-width:920px){
+ .shell{height:auto;min-height:100vh;overflow:visible}
+ .workspace{display:block;padding:10px;min-height:0}.control-panel,.center-panel{margin-bottom:12px;overflow:visible}
+ .controls-scroll{overflow:visible}.controls-bottom{position:sticky;bottom:0}
+ .header-actions{gap:5px}.nav-action{font-size:12px;padding:8px}.brand b{font-size:20px}
+ .footerbar{flex-wrap:wrap;padding:9px 12px}
+}
+@media (max-width:650px){
+ .topbar{height:auto;min-height:66px;padding:10px;flex-wrap:wrap}
+ .header-actions{width:100%;margin-left:0;justify-content:flex-start}
+ .brand{width:100%;flex:1}.nav-action{font-size:12px}
+ .horizon-cards{grid-template-columns:1fr}.chart-toggle{flex-wrap:wrap}
+ .horizon-card{min-height:120px}.chart-wrap{height:230px!important}
+ .side-lesson-dialog .intro{display:block}.side-lesson-dialog .intro-example{display:block}
+ .footerbar #storageState{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* Full-size main result stays visible at 1920×1080, and input guidance doesn't push critical fields off-screen. */
+.scenario-description{font-size:13.5px;line-height:1.4;margin:8px 0 8px;max-height:2.9em;overflow-y:auto}
+.inline-help{padding:9px 11px;margin:0 0 12px}
+.inline-help-title{display:none}
+.inline-help .next-step{font-size:13px!important;line-height:1.37!important;margin:0 0 4px!important;max-height:2.7em;overflow-y:auto}
+.inline-help-open{font-size:12px}
+.horizon-card{min-height:155px;padding:14px 17px}
+.horizon-big{font-size:clamp(28px,2.5vw,40px)!important;margin:7px 0 3px}
+.horizon-divider{margin:7px 0}
+.chart-panel{padding:17px 21px 12px}
+.chart-wrap{height:275px!important;margin-top:10px}
+.chart-legend{margin:9px 0 2px}
+.capital-composition{padding:14px 21px;margin-bottom:12px}
+.capital-composition .mini-title{margin:0 0 8px}
+.capital-composition .composition-bar{height:34px}
+.capital-composition .bar-legend{margin-top:9px}
+@media(max-width:1550px){
+ .chart-wrap{height:260px!important}.horizon-card{min-height:153px;padding:14px}.capital-composition{padding:12px 16px}
+ .panel-heading{margin-bottom:9px}.scenario-description{display:none}
+ .inline-help{padding:7px 10px;margin-bottom:8px}
+ .inline-help .next-step{margin-bottom:1px!important;line-height:1.34!important;max-height:2.7em}
+ .section-rule{margin:13px 0 9px}.horizon-inputs{gap:7px}
+ .control-panel{padding-top:14px}
+}
+@media(max-width:1170px){.chart-wrap{height:245px!important}.horizon-card{min-height:145px;padding:11px}}
+
+
+/* --- Entry Lab 0.2.2 · Layout / accessibility refinement --- */
+:root{--muted:#435e4c}
+.output-note,.chart-head .subline,.inline-help[hidden]{display:none!important}
+.controls-bottom .dirty-indicator:not(.dirty){display:none!important}
+/* Native contextual hints instead of decorative question-mark circles */
+.field-hint{border:0;border-bottom:1px dotted #517661;background:transparent;color:#315f42;font-size:11.5px;font-weight:600;line-height:1.2;padding:0 1px;margin-left:6px;cursor:help;position:relative;vertical-align:baseline}
+.field-hint:hover,.field-hint:focus-visible{color:#114e31;border-bottom-color:#114e31;background:transparent;filter:none}
+.field-hint:hover::after,.field-hint:focus-visible::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 10px);left:-25px;width:max-content;max-width:min(300px,65vw);white-space:normal;text-align:left;padding:12px 14px;background:#173c2a;color:#fff;font-size:13px;line-height:1.5;font-weight:400;z-index:60;border-radius:8px;box-shadow:0 8px 25px #1b3e3340;pointer-events:none}
+.section-rule .field-hint{font-size:11.5px}
+.control-panel .micro-note{color:#3f5b49}
+/* Three horizons: two readable estimates without changing outer card sizing. */
+.horizon-values{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0;flex:1}
+.horizon-nominal{min-width:0}
+.horizon-big{font-size:clamp(26px,2.05vw,38px)!important;white-space:nowrap;letter-spacing:-1px}
+.horizon-today{min-width:0;display:flex;flex-direction:column;align-items:flex-end;text-align:right;gap:6px}
+.horizon-today span{color:#405e4e;font-size:12px;line-height:1.1;white-space:nowrap}
+.horizon-today strong{font-size:clamp(15px,1.2vw,21px);line-height:1.18;color:#236346;font-weight:750;font-variant-numeric:tabular-nums;white-space:nowrap}
+.horizon-card{min-height:155px!important;height:155px!important;padding:13px 15px!important}
+.horizon-label{font-size:12px}
+.horizon-small{color:#456050;font-size:11.5px}
+.horizon-income{font-size:19px;line-height:1.14}
+.horizon-income small{font-size:12px;color:#4e6959}
+.horizon-divider{margin:5px 0 7px}
+/* Pack the two capital figures into the original fixed-height cards (no overflow). */
+.horizon-card{padding:10px 13px!important}
+.horizon-label{font-size:11px;line-height:1.08}
+.horizon-values{height:55px;min-height:55px;flex:0 0 auto;align-items:center}
+.horizon-big{font-size:clamp(25px,1.92vw,36px)!important;line-height:1.05;margin:0}
+.horizon-small{font-size:10.5px;line-height:1.15}
+.horizon-today{gap:3px}
+.horizon-today span{font-size:11px}
+.horizon-today strong{font-size:clamp(16px,1.2vw,20px)}
+.horizon-divider{margin:3px 0 5px}
+.horizon-income{font-size:18px;line-height:1.1}
+/* Results and chat in one working row; graphs narrower without micro typography. */
+.analysis-row{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:14px;align-items:stretch;margin-bottom:10px}
+.analysis-row>.chart-panel{min-width:0;margin-bottom:0;display:flex;flex-direction:column;box-shadow:var(--shadow);padding:18px 17px 13px}
+.analysis-row>.chart-panel .chart-head{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start;justify-content:space-between}
+.analysis-row .chart-tools{width:100%;justify-content:space-between;align-items:center;margin-top:0}
+.analysis-row .chart-head h3{font-size:21px;color:#1d3b2b}
+.analysis-row .chart-wrap{height:260px!important;min-height:230px;margin-top:4px}
+.analysis-row .chart-wrap svg text{font-size:20px!important;fill:#365644!important}
+.analysis-row .chart-toggle button{font-size:12.5px;min-height:32px;padding:6px 8px}
+.analysis-row .chart-legend{font-size:13.5px;color:#2e4b3a;gap:10px 15px;line-height:1.3}
+.analysis-row .chart-hover{color:#365f43;font-size:12.5px;white-space:nowrap}
+/* Legend matches solid / dashed series instead of dots. */
+.legend-line{display:inline-block;width:30px;height:0!important;min-width:30px;vertical-align:middle;margin-right:7px;border-top:3px solid var(--sample-color,#217b54);border-radius:0;background:none!important}
+.legend-line.legend-nominal{border-color:#217b54;border-top-style:solid}
+.legend-line.legend-real{border-color:#b17c31;border-top-style:dashed}
+.legend-line.legend-contrib{border-color:#6d8799;border-top-style:dotted}
+.legend-line.legend-sensitivity-main{border-top-style:solid}
+.legend-line.legend-sensitivity-alt{border-top-style:dashed}
+/* Embedded Dzen panel is always visible alongside charts on wide screens. */
+#assistantDock{min-width:0;min-height:380px;display:flex;flex-direction:column;gap:9px;margin:0;padding:17px 16px 15px;overflow:hidden;box-shadow:var(--shadow);transition:box-shadow .2s,border-color .2s}
+#assistantDock.attention{border-color:#327b55;box-shadow:0 0 0 3px #b5dec4}
+#assistantDock .panel-heading{margin-bottom:0}
+#assistantDock .guide-heading h2{font-size:21px}
+#assistantDock .assistant-banner{font-size:12px;padding:7px 10px;line-height:1.3;margin:0}
+#assistantDock .assistant-thread{min-height:130px;max-height:none;flex:1;overflow:auto;scrollbar-width:thin;padding:6px 1px;gap:9px}
+#assistantDock .bubble{font-size:14px;line-height:1.48;padding:10px 12px;max-width:100%}
+#assistantDock .bubble .who{font-size:11px}
+#assistantDock .quick-prompts{margin:0;gap:5px;flex-wrap:wrap}
+#assistantDock .quick-prompts button{font-size:12px;min-height:33px;padding:6px 8px}
+#assistantDock .chat-form{flex:none;min-height:44px;margin:0}
+#assistantDock .chat-form input{height:36px;font-size:14px;min-width:0}
+#assistantDock .chat-form button{height:36px;width:37px}
+/* Portfolio illustrative labels (inside optional details): 10 px was unacceptable. */
+.reference-visual .portfolio-labels span{font-size:15px!important;color:#294c37!important;line-height:1.45}
+.reference-visual .portfolio-labels b{font-size:15px!important;color:#174c31!important}
+.reference-visual .mini-title span{color:#405d49;font-size:14px}
+.reference-visual .mini-chart{padding:17px 20px}
+/* Visible label contrast passes normal-text 4.5:1 on white. */
+.chart-legend,.chart-head,.chart-hover{color:#294c37}
+/* Spotlight tour: dark surroundings, crisp live input / chart, floating lesson card. */
+.lesson-spotlight{position:fixed!important;z-index:1050!important;border:3px solid #a4daba;outline:1px solid #226943;border-radius:10px;box-shadow:0 0 0 300vmax rgba(7,27,20,.73),0 0 0 6px rgba(163,226,180,.18);pointer-events:none;transition:left .24s,top .24s,width .24s,height .24s}
+.side-lesson-dialog[open]{position:fixed;z-index:1100;top:90px;right:24px;left:auto;bottom:auto;transform:none;margin:0;width:min(495px,calc(100vw - 48px));max-height:calc(100vh - 115px);height:auto;border-radius:13px;border:1px solid #adceb8;box-shadow:0 20px 60px #001d1266;overflow-y:auto}
+.side-lesson-dialog.lesson-at-left[open]{right:auto;left:24px;transform:none}
+.side-lesson-dialog .intro{display:block;min-height:0;margin:0;border-radius:0}
+.side-lesson-dialog .intro-body{padding:19px 22px}
+.side-lesson-dialog .intro h2{font-size:23px;margin:8px 0}
+.side-lesson-dialog .intro p{font-size:14px;line-height:1.45;min-height:0}
+.side-lesson-dialog .intro .intro-controls{margin-top:15px;gap:6px}
+.side-lesson-dialog .intro-controls .button{font-size:12px;min-height:36px;padding:8px 9px}
+.side-lesson-dialog .intro-example{padding:12px 22px 14px;border-left:0;border-top:1px solid #4f7b62}
+.side-lesson-dialog .intro-example-number{font-size:30px;margin:3px 0}
+.side-lesson-dialog .intro-example-detail,.side-lesson-dialog .intro-example-foot{font-size:12px}
+.side-lesson-dialog .intro-orbit{display:none}
+.lesson-focus-caption{font-size:12px!important;color:#e4f2e7!important;background:#ffffff15;border-left:2px solid #b5e8c7;padding:6px 10px;margin:4px 0 10px!important}
+@media(max-width:1590px){
+ .analysis-row{grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr)}
+ #assistantDock{min-height:340px;max-height:370px}
+ #assistantDock .assistant-thread{min-height:90px}
+ .analysis-row .chart-wrap{height:238px!important}
+ .horizon-today span{font-size:11px}
+ .horizon-today strong{font-size:16px}
+ .horizon-big{font-size:clamp(25px,2.35vw,34px)!important}
+}
+@media(max-width:1170px){
+ .analysis-row{grid-template-columns:1fr}
+ .horizon-card{padding:10px!important}
+ .horizon-big{font-size:22px!important}
+ .horizon-today strong{font-size:14px}
+ .horizon-today span{font-size:10px}
+ .horizon-small{font-size:10.5px}
+}
+@media(max-width:920px){
+ .analysis-row{display:block}
+ .analysis-row>.chart-panel{margin-bottom:14px}
+ #assistantDock{margin-bottom:14px}
+}
+@media(max-width:650px){
+ .horizon-card{height:auto!important;min-height:150px!important}
+ .horizon-big{font-size:29px!important}
+ .horizon-today strong{font-size:20px}
+ .side-lesson-dialog[open]{top:auto;bottom:10px;right:10px;left:10px;width:auto;max-height:55vh}
+}
+
+/* Dzen Finance Lab 0.2.3: screen density, visible timelines, stable dialogue */
+.form-grid>.field{display:flex;flex-direction:column;min-width:0}
+.form-grid>.field>label{min-height:55px!important;display:flex!important;align-items:flex-start;align-content:flex-start;flex-wrap:wrap;gap:2px 5px;font-size:14px!important;line-height:1.25}
+.form-grid>.field>.input-currency{margin-top:auto}
+.timeline-rule{margin-top:12px}
+.timeline-fields{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:7px}
+.timeline-fields .field{display:flex;flex-direction:column;min-width:0;gap:6px}
+.timeline-fields label{font-size:13px;line-height:1.25;font-weight:680;color:#2b4b39;min-height:34px}
+.timeline-fields input{border:1px solid #b8ccbc;background:white;border-radius:8px;padding:10px 12px;min-height:45px;width:100%;font-size:19px;font-weight:700;color:#153b27}
+.timeline-explainer{color:#536e5c;font-size:12px;line-height:1.4;margin:6px 0 8px}
+.derived-monthly{background:#e8f3ec;border:1px solid #8cb69c;border-radius:10px;margin:12px 0;padding:12px 15px;display:grid;grid-template-columns:1fr auto;gap:5px 12px;align-items:center}
+.derived-monthly .derived-label{font-size:13px;font-weight:720;color:#254e35}
+.derived-monthly strong{font-size:24px;font-variant-numeric:tabular-nums;color:#12623b;white-space:nowrap}
+.derived-monthly .derived-note{grid-column:1/-1;font-size:12px;color:#456a52}
+#assistantDock{height:min(50dvh,550px)!important;max-height:50dvh!important;min-height:300px!important;align-self:start;overflow:hidden;display:flex!important;flex-direction:column!important}
+#assistantDock .assistant-thread{height:auto!important;min-height:0!important;max-height:none!important;flex:1 1 auto!important;overflow-y:auto!important;overscroll-behavior:contain;scrollbar-width:auto;scrollbar-color:#9fbcaa #f0f5f1;display:flex;flex-direction:column;gap:8px}
+#assistantDock .panel-heading,#assistantDock .assistant-banner,#assistantDock .quick-prompts,#assistantDock .chat-form{flex-shrink:0}
+#assistantDock .quick-prompts{margin-top:auto}
+.field-hint:hover::after,.field-hint:focus-visible::after{content:none!important}
+#floatingTip023{position:fixed;z-index:5000;pointer-events:none;background:#173c2a;color:#fff;border:1px solid #88b99a;border-radius:10px;box-shadow:0 12px 30px #152e2145;padding:12px 15px;font-size:14px;line-height:1.5;max-width:315px;min-width:160px;overflow-wrap:anywhere;white-space:normal}
+.horizon-plot-label{font-family:var(--ft);fill:#1d6243;font-size:16px!important;font-weight:750;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}
+.axis-label{fill:#416450;font-size:13px!important}
+.timeline-key-row{display:flex;flex:0 0 100%;flex-wrap:wrap;gap:7px 13px;border-top:1px solid #e2e9e3;padding-top:7px;margin-top:3px}
+.timeline-key{display:inline-flex;align-items:center;gap:5px;font-size:12px!important;line-height:1.3;color:#385a41;font-weight:650}
+.timeline-key.subtle{font-weight:400;color:#567363}
+.event-swatch{width:17px;display:inline-block;border-top:2px dashed #be8150}
+.event-swatch.payout{border-color:#99709a;border-top-style:dotted}
+.timeline-composition-note{font-size:12.5px;line-height:1.4;color:#466753;margin:8px 0 0}
+.income-timeline{width:100%;height:290px;max-height:43vh;display:block}
+#capitalLegend{display:flex;flex-wrap:wrap;gap:8px 13px}
+#capitalLegend .timeline-key-row{width:100%}
+@media (max-width:1590px){
+ #assistantDock{height:min(50dvh,470px)!important;max-height:50dvh!important;min-height:300px!important}
+ .timeline-fields label{min-height:40px}
+ .horizon-plot-label{font-size:14px!important}
+}
+@media (max-width:1170px){
+ #assistantDock{height:min(50dvh,470px)!important;min-height:280px!important}
+ .form-grid>.field>label{min-height:50px!important}
+}
+@media (max-width:650px){.timeline-fields{grid-template-columns:1fr}.derived-monthly{grid-template-columns:1fr}.derived-monthly strong{white-space:normal}}
+
+
+/* Compact readable computed monthly amount for reverse mode */
+.derived-monthly{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:4px!important}
+.derived-monthly .derived-label{width:100%;line-height:1.3}
+.derived-monthly strong{font-size:clamp(20px,1.45vw,25px);max-width:100%;overflow-wrap:break-word;white-space:normal;line-height:1.17}
+.derived-monthly .derived-note{line-height:1.4}
+.derived-monthly[hidden]{display:none!important}
+\n/* 0.2.4 — scenario explanations on demand, pixel-perfect aligned money fields. */
+.scenario-description, .scenario-description[hidden]{display:none!important}
+.scenario[data-tip]{cursor:pointer}
+.scenario:focus-visible{outline:3px solid #4a9770;outline-offset:3px}
+@supports (grid-template-rows: subgrid){
+  .form-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto 48px;column-gap:12px;row-gap:0;align-items:stretch}
+  .form-grid>.field{display:grid!important;grid-row:1/span 2;grid-template-rows:subgrid;gap:0;min-width:0}
+  .form-grid>.field:first-child{grid-column:1}
+  .form-grid>.field#monthlyField,.form-grid>.field#targetField{grid-column:2}
+  .form-grid>.field[hidden]{display:none!important}
+  .form-grid>.field>label{grid-row:1;min-height:0!important;height:auto!important;align-self:start;margin-bottom:0!important;padding-bottom:7px;}
+  .form-grid>.field>.input-currency{grid-row:2;margin-top:0!important;align-self:stretch;min-height:48px;height:48px}
+  .form-grid>.field>.input-currency input{height:48px;min-height:48px}
+}
+@media(max-width:760px){
+  .form-grid{grid-template-columns:1fr!important;grid-template-rows:auto!important;gap:14px!important}
+  .form-grid>.field{display:flex!important;grid-row:auto!important;grid-column:1!important}
+  .form-grid>.field[hidden]{display:none!important}
+  .form-grid>.field>label{padding-bottom:6px}
+}
+
+
+.lesson-draft-note{background:#e5f4df!important;border-left:3px solid #92bd83;padding:7px 10px;border-radius:5px;color:#173e27!important;font-weight:700;font-size:12px!important;line-height:1.35!important;min-height:0!important;margin:9px 0!important}
+/* 0.2.5 — instructional example values and compact summaries */
+.side-lesson-dialog .intro-example{min-width:0;overflow:visible;padding:22px 20px 18px}
+.intro-example-display{display:flex;flex-direction:column;gap:10px;margin:16px 0 11px;min-width:0;color:#f1fff5;font-size:15px;line-height:1.45}
+.intro-example-display .lesson-number{font-size:31px;line-height:1.12;letter-spacing:-.7px;font-weight:750;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.intro-example-display .lesson-number small{font-size:14px;font-weight:500;letter-spacing:0}
+.intro-example-display .lesson-caption{font-size:14px;color:#d1ead8}
+.intro-example-display .lesson-mini-note{font-size:13px;line-height:1.46;color:#d7eee0}
+.intro-example-display strong{color:white}
+.intro-example-display .lesson-horizons{display:grid;gap:6px}
+.intro-example-display .lesson-mini-heading{font-size:12px;color:#cce8d4;font-weight:700}
+.intro-example-display .lesson-horizon{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:9px;border:1px solid #6b9a7f;border-radius:6px;background:#ffffff0b;font-size:12px}
+.intro-example-display .lesson-horizon strong{font-size:16px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.intro-example-display .lesson-horizon.current{background:#ffffff1a;border-color:#b5dec4}
+.intro-example-display .lesson-pair{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.intro-example-display .lesson-pair>div{display:flex;flex-direction:column;gap:6px;background:#ffffff0d;border-radius:7px;padding:10px;border:1px solid #6e9b84}
+.intro-example-display .lesson-pair span{font-size:12px;color:#c8e5d3}
+.intro-example-display .lesson-pair strong{font-size:24px;font-variant-numeric:tabular-nums}
+.intro-example-display .lesson-split{display:flex;height:18px;gap:2px;border-radius:5px;overflow:hidden;background:#557861}
+.intro-example-display .lesson-split i{background:#68cba7;display:block}
+.intro-example-display .lesson-split b{background:#dfbd7d;display:block}
+.intro-example-display .lesson-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.intro-example-display .lesson-breakdown span{font-size:11px;padding:7px 5px;background:#ffffff10;border-radius:5px;display:flex;flex-direction:column;gap:3px}
+.intro-example-display .lesson-breakdown strong{font-size:15px;white-space:nowrap}
+.intro-example-display .lesson-dialog-preview{padding:6px 0;display:flex;flex-direction:column;gap:8px}
+.intro-example-display .lesson-dialog-preview p{margin:0!important;min-height:0!important;color:#fff!important;background:#ffffff13;border-left:3px solid #8fcea5;padding:10px;font-size:13px!important;line-height:1.4}
+.intro-example-display .lesson-error{padding:8px;border:1px solid #ebc1a6;border-radius:6px;background:#86463235;font-size:12px;color:#ffe3d6}
+.intro-example .intro-example-foot{border-top:1px solid #ffffff2b;padding-top:8px;margin-top:3px;line-height:1.42}
+.lesson-focus-caption{max-width:760px}
+@media(max-width:720px){.side-lesson-dialog[open]{width:calc(100vw - 20px);left:10px!important;right:auto!important;top:64px;max-height:calc(100vh - 78px)}.side-lesson-dialog .intro-example{padding:16px 18px}.intro-example-display .lesson-number{font-size:28px}}
+
+
+/* Acceptance candidate: keep complete amounts readable when a card narrows. */
+.horizon-card{height:auto!important;min-height:155px!important}
+.horizon-label{min-height:20px;flex-wrap:wrap;gap:4px 8px}
+.horizon-values{height:auto;min-height:55px;flex:1 0 auto;flex-wrap:wrap;align-items:center;align-content:center;gap:8px 16px;padding:6px 0}
+.horizon-nominal,.horizon-today{flex:1 1 max-content;min-width:0;max-width:100%}
+.horizon-big{font-size:clamp(25px,2.05vw,36px)!important;white-space:normal;overflow-wrap:anywhere}
+.horizon-today strong{font-size:clamp(16px,1.2vw,20px);white-space:normal;overflow-wrap:anywhere;max-width:100%}
+.horizon-income{flex-wrap:wrap;overflow-wrap:anywhere;min-width:0}
+.horizon-income small{white-space:nowrap}
+</style>
+</head>
+<body>
+<div aria-hidden="true" class="ambient"><div class="light light-a"></div><div class="light light-b"></div><div class="fine-grid"></div></div>
+<div class="shell">
+<header class="topbar">
+<div aria-label="Dzen Finance — Лаборатория инвестиционного плана" class="brand">
+<span aria-hidden="true" class="brand-mark"><svg viewbox="0 0 240 220"><path d="M15 0L99 0C151 0 190 36 190 87C190 138 152 175 99 175L24 175L68 131L99 131C126 131 146 112 146 87C146 62 126 46 99 46L15 46L15 0ZM0 175L0 126L62 63L109 63L0 175Z" fill="currentColor" transform="matrix(1.05263 0 0 1.02857 20 20)"></path></svg></span>
+<span><b>Dzen Finance</b><small>ЛАБОРАТОРИЯ ИНВЕСТИЦИОННОГО ПЛАНА</small></span>
+</div>
+<div class="header-actions"><button aria-haspopup="dialog" class="nav-action" id="openLesson" type="button"><span aria-hidden="true">◷</span> Обучение · 1 мин</button><button aria-controls="assistantDock" aria-haspopup="dialog" aria-label="Перейти к диалогу с Dzen" class="nav-action nav-strong" id="openAssistant" type="button">◉ Диалог с Dzen</button><button aria-haspopup="dialog" class="nav-action" id="openHistory" type="button"><span aria-hidden="true">▤</span> История</button><span class="lab-tag">АЛЬФА · МАКЕТ 0.2.5</span><button aria-label="Сбросить макет" class="icon-button" id="resetButton" title="Сбросить макет" type="button">↺</button></div>
+</header>
+<div class="intro-restore" hidden="" id="introRestore"><span>Понятная финансовая цель · 60 секунд с примером</span><button class="button button-subtle" id="introReopen" type="button">Показать введение</button></div>
+<main class="workspace">
+<section aria-labelledby="inputsTitle" class="panel control-panel">
+<div class="panel-heading"><div><span class="eyebrow">01 · ВВОД ИСХОДНЫХ ДАННЫХ</span><h2 id="inputsTitle">Построить план</h2></div><span aria-hidden="true" class="icon-medal">◈</span></div>
+<div class="controls-scroll">
+<div aria-label="Сценарий расчёта" class="scenario-choice" role="group"><button aria-pressed="true" class="scenario active" id="scenarioForward" type="button" data-tip="Укажите начальную сумму и ежемесячные взносы. Увидите капитал и ориентир дохода на трёх сроках." aria-description="Укажите начальную сумму и ежемесячные взносы. Увидите капитал и ориентир дохода на трёх сроках."><span>01</span>Что получится</button><button aria-pressed="false" class="scenario" id="scenarioReverse" type="button" data-tip="Назовите желаемый доход и главный срок. Необходимое ежемесячное пополнение появится ниже." aria-description="Назовите желаемый доход и главный срок. Необходимое ежемесячное пополнение появится ниже."><span>02</span>Путь к цели</button></div>
+<p class="scenario-description" id="scenarioDescription" hidden>Укажите начальную сумму и ежемесячные взносы. Увидите капитал и ориентир дохода на трёх сроках.</p><div class="inline-help" hidden=""><div class="inline-help-title">СЛЕДУЮЩИЙ ШАГ</div><div aria-live="polite" class="next-step" id="nextStep">В примере уже есть числа. Проверьте сумму и пополнение; затем нажмите «Пересчитать».</div><button class="inline-help-open" id="helpInlineOpen" type="button">Задать вопрос ↗</button></div>
+<div class="form-grid">
+<div class="field"><label for="capital">Начальный капитал <button aria-label="Пояснение капитала" class="field-hint" data-help="capital" data-tip="Сумма, участвующая в плане. Резерв и ближайшие обязательные расходы можно оставить вне неё." title="Сумма, участвующая в плане. Резерв и ближайшие обязательные расходы можно оставить вне неё." type="button">Что входит</button></label><div class="input-currency"><span>$</span><input data-field="capital" id="capital" inputmode="decimal" max="1000000000000" min="0" step="1000" type="number" value="100000"/></div></div>
+<div class="field" id="monthlyField"><label for="monthly">Пополнение ежемесячно <button aria-label="Пояснение пополнений" class="field-hint" data-help="monthly" data-tip="Сколько вы готовы добавлять в конце каждого месяца. При отсутствии пополнений укажите ноль." title="Сколько вы готовы добавлять в конце каждого месяца. При отсутствии пополнений укажите ноль." type="button">О пополнении</button></label><div class="input-currency"><span>$</span><input data-field="monthly" id="monthly" inputmode="decimal" max="100000000" min="0" step="100" type="number" value="2000"/></div></div>
+<div class="field" hidden="" id="targetField"><label for="target">Хочу получать из капитала в месяц <button aria-label="Пояснение желаемой выплаты из капитала" class="field-hint" data-help="income" data-tip="Это желаемая ежемесячная сумма из накопленного капитала, а не процент его роста. Укажите сумму в сегодняшних или будущих долларах." title="Это желаемая ежемесячная сумма из накопленного капитала, а не процент его роста. Укажите сумму в сегодняшних или будущих долларах." type="button">О выплате</button></label><div class="input-currency"><span>$</span><input data-field="target" id="target" inputmode="decimal" max="100000000" min="1" step="100" type="number" value="2000"/></div></div>
+</div>
+<div class="field basis-field" hidden="" id="basisField"><label>Сумма цели</label><div aria-label="Покупательная способность цели" class="chipgroup" role="group"><button aria-pressed="true" class="chip active" data-basis="real" type="button">В сегодняшних $</button><button aria-pressed="false" class="chip" data-basis="nominal" type="button">В долларах будущего года</button></div></div>
+<section class="derived-monthly" id="reverseMonthlyResult" hidden aria-live="polite"><span class="derived-label">Необходимое пополнение ежемесячно</span><strong id="reverseMonthlyValue">—</strong><span class="derived-note" id="reverseMonthlyNote">Для расчёта выберите «Пересчитать»</span></section>
+<div class="section-rule"><span>Три горизонта</span><button aria-label="Пояснение горизонтов" class="field-hint" data-help="horizons" data-tip="Три момента времени для сравнения результатов одного плана." title="Три момента времени для сравнения результатов одного плана." type="button">О сроках</button></div>
+<div class="horizon-inputs"><label>1-й, лет<input data-h="0" max="50" min="1" step="1" type="number" value="3"/></label><label>2-й, лет<input data-h="1" max="50" min="1" step="1" type="number" value="5"/></label><label>3-й, лет<input data-h="2" max="50" min="1" step="1" type="number" value="10"/></label></div>
+<div class="section-rule timeline-rule"><span>События инвестиционного плана</span></div>
+<div class="timeline-fields">
+ <div class="field"><label for="contributionStop">Пополнять до конца, лет</label><input id="contributionStop" data-field="contributionStop" type="number" min="0" max="60" step="1" value="10" title="0 означает отсутствие ежемесячных пополнений; 10 — пополнять все первые 10 лет"></div>
+ <div class="field"><label for="withdrawalStart">Начать изъятия после, лет</label><input id="withdrawalStart" data-field="withdrawalStart" type="number" min="0" max="60" step="1" value="10" title="10 означает начать ежемесячные выплаты с 11-го года; 0 — с первого месяца"></div>
+</div><p class="timeline-explainer">Например: пополнять первые 10 лет, а с 11-го — получать выплаты из капитала. Изменение этих сроков влияет на графики.</p>
+<div class="field primary-field" hidden="" id="primaryField"><label for="primaryHorizon">Когда нужен целевой доход?</label><select data-field="primaryHorizon" id="primaryHorizon"><option value="0">1-й горизонт</option><option value="1">2-й горизонт</option><option selected="" value="2">3-й горизонт</option></select></div>
+<div class="section-rule"><span>Условия моделирования</span><button aria-label="Пояснение условий" class="field-hint" data-help="assumptions" data-tip="Доходность, инфляция и доля выплат — условия модели, не обещания." title="Доходность, инфляция и доля выплат — условия модели, не обещания." type="button">Об условиях</button></div>
+<div class="triple-params"><div class="field"><label for="rate">Рост вложений за год <button aria-label="Пояснение условного роста инвестиций" class="field-hint" data-help="rate" data-tip="Предполагаемая полная доходность вложений за год: изменение стоимости плюс реинвестированные выплаты. Это условие модели, а не ежемесячный доход для трат." title="Предполагаемая полная доходность вложений за год: изменение стоимости плюс реинвестированные выплаты. Это условие модели, а не ежемесячный доход для трат." type="button">О росте</button></label><div class="pct-input"><input data-field="rate" id="rate" max="100" min="-90" step="0.5" type="number" value="10"/><span>%</span></div></div><div class="field"><label for="inflation">Инфляция/год <button aria-label="Пояснение инфляции" class="field-hint" data-help="inflation" data-tip="Нужна, чтобы показать будущие суммы в покупательной способности сегодняшнего доллара." title="Нужна, чтобы показать будущие суммы в покупательной способности сегодняшнего доллара." type="button">Об инфляции</button></label><div class="pct-input"><input data-field="inflation" id="inflation" max="100" min="-50" step="0.5" type="number" value="5"/><span>%</span></div></div><div class="field"><label for="withdrawal">Доля на выплаты за год <button aria-label="Пояснение доли изъятия" class="field-hint" data-help="withdrawal" data-tip="Какая доля капитала в модели направляется на выплаты за год. Например, 4% — не доходность вложений и не гарантия реальных выплат." title="Какая доля капитала в модели направляется на выплаты за год. Например, 4% — не доходность вложений и не гарантия реальных выплат." type="button">О выплатах</button></label><div class="pct-input"><input data-field="withdrawal" id="withdrawal" max="15" min="0.1" step="0.5" type="number" value="4"/><span>%</span></div></div></div>
+
+<details class="additional-settings"><summary>Дополнительные сведения (не влияют на расчёт)</summary><div class="field risk-field"><label for="risk">Отношение к риску <button aria-label="Пояснение риска" class="field-hint" data-help="risk" data-tip="Текущее поле не влияет на расчёт, служит только для фиксации пожелания." title="Текущее поле не влияет на расчёт, служит только для фиксации пожелания." type="button">О риске</button></label><select data-field="risk" id="risk"><option value="none">Ещё не определено</option><option value="cautious">Хочу ограничить колебания</option><option value="balanced">Готов к умеренным колебаниям</option><option value="active">Допускаю значительные колебания</option></select><small>Пока не меняет расчёт и не формирует портфель.</small></div></details></div>
+<div class="controls-bottom"><div class="form-actions"><button class="button button-primary recalc" id="recalculate" type="button"><span>⟳</span> Пересчитать</button><button class="button button-subtle" id="savePlan" type="button">Сохранить вариант</button></div>
+<div class="form-error" hidden="" id="formError" role="alert"></div><div aria-live="polite" class="dirty-indicator" id="dirtyIndicator">Действующий учебный расчёт · Параметры можно изменить</div></div>
+</section>
+<section aria-labelledby="resultsTitle" class="center-panel">
+<div class="center-heading"><div><span class="eyebrow">02 · МОДЕЛЬ ФОРМИРОВАНИЯ КАПИТАЛА</span><h1 id="resultsTitle">Ваши три горизонта</h1></div><div class="result-badge" id="resultStatus"><span class="pulse-dot"></span> Расчёт готов</div></div>
+<div class="output-note" hidden="" id="resultSummary">При заданных условиях капитал накапливается за счёт стартовой суммы, ежемесячных взносов и условного инвестиционного результата.</div>
+<div class="horizon-cards" id="horizonCards"></div>
+<section class="capital-composition glass" id="capitalComposition"><div class="mini-title"><h3>Из чего складывается результат</h3><span id="compositionHorizon">На 10-м году</span></div><div id="compositionChart"></div></section><div class="analysis-row" id="analysisRow"><div aria-labelledby="capitalChartTitle" class="chart-panel glass"><div class="chart-head"><div><h3 id="capitalChartTitle">Как растёт капитал</h3></div><div class="chart-tools"><div aria-label="Вид графика" class="chart-toggle" role="group"><button aria-pressed="true" class="active" data-chart="capital" data-display="capital" type="button">Капитал</button><button aria-pressed="false" data-display="income" type="button">Доход</button><button aria-pressed="false" data-display="contrib" type="button">Пополнения</button><button aria-pressed="false" data-chart="sensitivity" data-display="sensitivity" type="button">Сценарии</button></div><span aria-live="polite" class="chart-hover" id="chartHover">Наведите на график</span></div></div><div class="chart-wrap" id="capitalChart"></div><div class="chart-legend" id="capitalLegend"><span><i class="legend-line legend-nominal"></i> Капитал будущий</span><span><i class="legend-line legend-real"></i> В сегодняшних $</span><span><i class="legend-line legend-contrib"></i> Собственные деньги</span></div><section class="large-extra-chart" hidden="" id="largeIncomeView"><div class="mini-title"><h3>Доход от капитала</h3><span>Месяц · условный ориентир</span></div><div id="incomeChart"></div></section><section class="large-extra-chart" hidden="" id="largeContribView"><div class="mini-title"><h3>Пополнения по годам</h3><span>Собственные взносы</span></div><div id="contributionChart"></div></section></div><aside aria-labelledby="guideTitle" class="panel guide-panel" id="assistantDock"><div class="panel-heading guide-heading"><div><span class="eyebrow">ПОЯСНЕНИЯ К РАСЧЁТУ</span><h2 id="guideTitle">Диалог с Dzen</h2></div><span class="guide-light" title="Локальная справка без ИИ"></span></div>
+<div class="assistant-banner">Локальные пояснения без подключения к ИИ</div>
+<div aria-label="История диалога" aria-live="polite" class="assistant-thread" id="assistantThread"></div>
+<div class="quick-prompts"><button data-prompt="Что означает рост вложений?" type="button">Рост вложений?</button><button data-prompt="Чем рост вложений отличается от выплат?" type="button">Рост и выплаты</button><button data-prompt="Что теперь вводить?" type="button">Что дальше?</button></div>
+<form class="chat-form" id="chatForm"><input aria-label="Вопрос помощнику" autocomplete="off" id="chatInput" placeholder="Спросите о расчёте…"/><button aria-label="Отправить вопрос" type="submit">➤</button></form>
+</aside></div><details class="reference-visual"><summary>Показать иллюстративную структуру портфеля · не рекомендация</summary><section class="glass mini-chart"><div class="mini-title"><h3>Пример структуры портфеля</h3><span>Наглядная схема, не состав вашего портфеля</span></div><div id="portfolioChart"></div></section></details>
+<div class="disclaimer">Расчёт не является прогнозом. Доход — условная сумма по ставке изъятия, а не обещание дивидендов или купонов. Реальное движение рынка, налоги, комиссии, будущая схема выплат и вероятность результата не моделируются.</div>
+</section>
+</main>
+<footer class="footerbar"><span>Dzen Finance · Исследовательский макет 0.2.5 · Alpha · USD</span><details class="privacy-details"><summary>Условия макета</summary><div class="privacybar">Учебный макет без подключения к банкам, PERSONAL и CLUB. Все суммы — вымышленные. Данные остаются только в этом браузере; внешних ИИ-вызовов нет.</div></details><span id="storageState">Данные сохраняются локально</span></footer>
+<div aria-hidden="true" class="lesson-spotlight" hidden="" id="lessonSpotlight"></div><dialog aria-label="Введение в план капитала" aria-modal="false" class="side-lesson-dialog" id="lessonDialog"><div class="modal-top"><div><span class="eyebrow">КРАТКОЕ ОБУЧЕНИЕ</span><h2>Учимся прямо на экране</h2></div><button aria-label="Закрыть обучение" class="close-dialog" id="closeLesson" type="button">×</button></div><section aria-label="60-секундное введение" class="intro">
+<div aria-hidden="true" class="intro-orbit"><div class="orb-core"></div></div>
+<div class="intro-body">
+<div class="intro-caption"><span class="eyebrow">60-СЕКУНДНОЕ ВВЕДЕНИЕ</span><span class="countdown" id="introClock">01:00</span></div><p class="lesson-focus-caption">Каждая тема подсвечивает свой элемент интерфейса. Голос называет только тему; пояснения остаются на экране.</p>
+<h2 id="introTitle">От сегодняшних денег к капиталу и доходу</h2>
+<p id="introCopy">Капитал — это деньги и инвестиционные активы, которыми вы располагаете. Мы рассмотрим, как их можно пополнять и моделировать результат на выбранные сроки.</p><p class="lesson-draft-note" id="introDraftNotice" hidden>В уроке показаны ваши новые значения. Карточки и график на основном экране обновятся после нажатия «Пересчитать».</p>
+<div class="intro-controls"><button class="button button-primary" id="introPlay" type="button">▶ Пройти за минуту</button><button class="button button-subtle" id="introVoice" type="button">♬ Включить голос</button><button class="button button-subtle" id="introSkip" type="button">Свернуть</button><span aria-live="polite" class="intro-status" id="introStatus">Можно пропустить</span></div>
+<div class="intro-track"><span id="introProgress"></span></div>
+</div>
+<div aria-live="polite" class="intro-example"><div class="intro-example-heading">ДАННЫЕ ИЗ ВАШИХ ТЕКУЩИХ ПОЛЕЙ</div><div id="introExampleDisplay" class="intro-example-display"></div><div class="intro-example-foot">Учебный пример строится из данных формы, не меняя текущий расчёт без «Пересчитать».</div></div>
+</section></dialog><dialog aria-label="История расчётов" class="work-dialog" id="historyDialog"><div class="modal-top"><div><span class="eyebrow">ВАШИ СОХРАНЁННЫЕ РАСЧЁТЫ</span><h2>История вариантов</h2></div><button aria-label="Закрыть историю" class="close-dialog" data-close-dialog="historyDialog" type="button">×</button></div><div class="history-box"><div class="mini-title"><h3>История расчётов</h3><span id="historyCount">0 записей</span></div><p class="micro-note">Только в этом браузере. Можно восстановить прежние значения.</p><div class="history-items" id="historyItems"></div><div class="history-actions"><button class="button button-subtle" id="exportButton" type="button">↓ Скачать план и историю</button></div></div></dialog></div>
+
+<div class="toast" hidden="" id="toast" role="status"></div>
+<noscript><div style="padding:30px;background:#f5f6f0;color:#173c2c;">Для расчётов включите JavaScript. Макет автономный и не передаёт данные на сервер.</div></noscript>
+<script>'use strict';
+const APP_VERSION = '0.2.5';
+const STORAGE_KEY = 'dzen.finance.entry.lab.v025';
+const LEGACY_STORAGE_KEY = 'dzen.finance.entry.lab.v024';
+const OLDER_STORAGE_KEY = 'dzen.finance.entry.lab.v023';
+const $ = id => document.getElementById(id);
+const fmt = (n,d=0) => Number.isFinite(n)?n.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}):'—';
+const usd = (n,d=0) => Number.isFinite(n)?'$'+fmt(n,d):'—';
+const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const asNum = v => v==='' || v===null || v===undefined ? NaN : Number(v);
+const yearWord = n => (n%100>=11&&n%100<=14)?'лет':n%10===1?'год':n%10>=2&&n%10<=4?'года':'лет';
+const nice = n=>Number.isFinite(n)?n>=1e6?'$'+fmt(n/1e6,1)+' млн':n>=1000?'$'+fmt(n/1000,0)+' тыс.':usd(n):'—';
+const options = ()=>({scenario:'forward',capital:100000,monthly:2000,target:2000,basis:'real',horizons:[3,5,10],primaryHorizon:2,contributionStop:10,withdrawalStart:10,rate:10,inflation:5,withdrawal:4,risk:'none'});
+/* MATH_START */
+const DzenMath = (()=>{
+ function factors(years, annualPercent){
+   if(!Number.isFinite(years)||years<0||years>60||annualPercent<=-100||annualPercent>100||!Number.isFinite(annualPercent))throw Error('Недопустимые условия модели');
+   const n=years*12,logMonth=Math.log1p(annualPercent/100)/12,growth=Math.exp(n*logMonth),annuity=Math.abs(logMonth)<1e-13?n:Math.expm1(n*logMonth)/Math.expm1(logMonth);
+   return {n,growth,annuity};
+ }
+ function future(capital,monthly,years,annualPercent){if(![capital,monthly].every(v=>Number.isFinite(v)&&v>=0))throw Error('Суммы должны быть неотрицательными');const f=factors(years,annualPercent);return capital*f.growth+monthly*f.annuity;}
+ function requiredMonthly(capital,targetCapital,years,annualPercent){if(!Number.isFinite(targetCapital)||targetCapital<0)throw Error('Цель должна быть положительной');const f=factors(years,annualPercent);if(f.annuity===0)throw Error('Нулевой горизонт');return Math.max(0,(targetCapital-capital*f.growth)/f.annuity);}
+ /* One month: investment return -> end-of-month deposit (while enabled) -> end-of-month withdrawal (after start). */
+ function simulate(capital,monthly,p,annualPercent=p.rate,months=Math.ceil(p.horizons[2]*12*1.2)){
+   const growth=Math.exp(Math.log1p(annualPercent/100)/12),fraction=p.withdrawal/100/12;
+   let balance=capital,own=capital,withdrawn=0,paid=0;
+   const trace=[{month:0,year:0,nominal:balance,real:balance,own,withdrawn,paid:0}];
+   for(let m=1;m<=months;m++){
+     balance*=growth;
+     if(m<=p.contributionStop*12){balance+=monthly;own+=monthly;}
+     paid=0;
+     if(m>p.withdrawalStart*12){paid=Math.max(0,balance)*fraction;balance-=paid;withdrawn+=paid;}
+     if(balance<0)balance=0;
+     const year=m/12,real=balance/Math.pow(1+p.inflation/100,year);
+     trace.push({month:m,year,nominal:balance,real,own,withdrawn,paid});
+   }
+   return trace;
+ }
+ function calculate(p){
+   const hh=p.horizons;
+   if(!Array.isArray(hh)||hh.length!==3||!hh.every((n,i)=>Number.isInteger(n)&&n>=1&&n<=50&&(i===0||n>hh[i-1])))throw Error('Сроки должны быть целыми, возрастающими: от 1 до 50 лет');
+   if(!['forward','reverse'].includes(p.scenario))throw Error('Неизвестный сценарий');
+   if(!Number.isFinite(p.capital)||p.capital<0||p.capital>1e12)throw Error('Проверьте начальный капитал');
+   if(!Number.isFinite(p.rate)||p.rate< -90||p.rate>100)throw Error('Доходность — от −90% до 100%');
+   if(!Number.isFinite(p.inflation)||p.inflation< -50||p.inflation>100)throw Error('Инфляция — от −50% до 100%');
+   if(!Number.isFinite(p.withdrawal)||p.withdrawal<=0||p.withdrawal>15)throw Error('Годовая доля выплат — больше 0% и не выше 15%');
+   if(!Number.isInteger(p.primaryHorizon)||p.primaryHorizon<0||p.primaryHorizon>2)throw Error('Нужно выбрать главный горизонт');
+   const plotMonths=Math.ceil(hh[2]*12*1.2),plotYears=plotMonths/12;
+   for(const [name,value] of [['Окончание пополнений',p.contributionStop],['Начало выплат',p.withdrawalStart]]){
+     if(!Number.isInteger(value)||value<0||value*12>plotMonths)throw Error(`${name}: укажите целое число от 0 до ${Math.floor(plotYears)} лет — в пределах видимого графика`);
+   }
+   let monthly=p.monthly,targetCapital=null,nominalMonthlyTarget=null;
+   if(p.scenario==='reverse'){
+     if(!Number.isFinite(p.target)||p.target<=0||p.target>1e8)throw Error('Укажите целевой доход от $1 до $100 000 000');
+     const y=hh[p.primaryHorizon],price=p.basis==='real'?Math.pow(1+p.inflation/100,y):1;
+     if(!Number.isFinite(price)||price<=0)throw Error('Некорректная инфляция');
+     nominalMonthlyTarget=p.target*price;targetCapital=nominalMonthlyTarget*12/(p.withdrawal/100);
+     const at=y*12,zero=simulate(p.capital,0,p,p.rate,at).at(-1).nominal,one=simulate(p.capital,1,p,p.rate,at).at(-1).nominal;
+     const marginal=one-zero;
+     if(marginal<=1e-8 && targetCapital>zero+1e-5)throw Error('До целевого срока пополнений нет. Увеличьте срок окончания пополнений или скорректируйте цель.');
+     const exact=marginal>1e-8?Math.max(0,(targetCapital-zero)/marginal):0;
+     monthly=Math.ceil((exact-1e-9)*100)/100;
+   }
+   if(!Number.isFinite(monthly)||monthly<0||monthly>1e8)throw Error('Пополнение вне допустимого диапазона');
+   const traces=simulate(p.capital,monthly,p,p.rate,plotMonths);
+   const rows=hh.map(year=>{
+     const t=traces[year*12],nominal=t.nominal,price=Math.pow(1+p.inflation/100,year);
+     const earned=nominal+t.withdrawn-t.own,nominalIncome=nominal*p.withdrawal/100/12;
+     return {year,nominal,real:nominal/price,own:t.own,earned,withdrawn:t.withdrawn,paid:t.paid,nominalIncome,realIncome:nominalIncome/price,inflationFactor:price};
+   });
+   if(![monthly,targetCapital??0,...rows.flatMap(r=>[r.nominal,r.real,r.own,r.earned,r.withdrawn,r.nominalIncome,r.realIncome])].every(Number.isFinite))throw Error('Величины вышли за диапазон расчёта');
+   return {rows,traces,monthly,targetCapital,nominalMonthlyTarget,scenario:p.scenario,plotYears,plotMonths,primaryYear:hh[p.primaryHorizon],primaryIndex:p.primaryHorizon};
+ }
+ return Object.freeze({factors,future,requiredMonthly,simulate,calculate});
+})();
+/* MATH_END */
+window.DzenMath=DzenMath;
+const initialConversation=[{role:'assistant',text:'Я помогу собрать первый инвестиционный план. Можно менять суммы и условия в левой панели. Когда будете готовы, нажмите «Пересчитать».\n\nЕсли вопрос отвлечёт от ввода, сначала отвечу на него, а затем подскажу, какой шаг следующий.'}];
+const state={...options(),history:[],chat:[...initialConversation],result:null,lastParams:null,dirty:false,storageOK:true,introCollapsed:false,chartView:'capital'};
+function ownFields(){return {scenario:state.scenario,capital:state.capital,monthly:state.monthly,target:state.target,basis:state.basis,horizons:[...state.horizons],primaryHorizon:state.primaryHorizon,contributionStop:state.contributionStop,withdrawalStart:state.withdrawalStart,rate:state.rate,inflation:state.inflation,withdrawal:state.withdrawal,risk:state.risk}}
+function load(){try{const s=JSON.parse(localStorage.getItem(STORAGE_KEY)||localStorage.getItem(LEGACY_STORAGE_KEY)||localStorage.getItem(OLDER_STORAGE_KEY)||'null');if(s&&(['0.2.5','0.2.4','0.2.3'].includes(s.version))&&s.data){const d=s.data;for(const k of ['scenario','capital','monthly','target','basis','primaryHorizon','contributionStop','withdrawalStart','rate','inflation','withdrawal','risk','introCollapsed'])if(Object.hasOwn(d,k))state[k]=d[k];if(Array.isArray(d.horizons)&&d.horizons.length===3)state.horizons=d.horizons;if(Array.isArray(d.history))state.history=d.history.slice(0,12);if(Array.isArray(d.chat))state.chat=d.chat.slice(-45);if(d.lastParams&&typeof d.lastParams==='object')state.lastParams=d.lastParams}}catch(e){state.storageOK=false}}
+function persist(){try{const data={...ownFields(),history:state.history.slice(0,12),lastParams:state.lastParams,chat:state.chat.slice(-45),introCollapsed:state.introCollapsed};localStorage.setItem(STORAGE_KEY,JSON.stringify({version:APP_VERSION,data}));state.storageOK=true;$('storageState').textContent='Данные сохраняются локально'}catch(e){state.storageOK=false;$('storageState').textContent='Хранилище недоступно; используйте экспорт'}}
+function error(text){$('formError').textContent=text;$('formError').hidden=false}
+function clearError(){$('formError').textContent='';$('formError').hidden=true}
+// Compare only the parameters that affect the currently selected calculation.
+// It is valid to edit a field and then undo that edit without repeating a calculation.
+function modelParamsEqual(a,b){
+ if(!a||!b||a.scenario!==b.scenario)return false;
+ const common=['capital','rate','inflation','withdrawal','contributionStop','withdrawalStart','primaryHorizon'];
+ if(common.some(k=>Number(a[k])!==Number(b[k])))return false;
+ if(!Array.isArray(a.horizons)||!Array.isArray(b.horizons)||a.horizons.length!==b.horizons.length||a.horizons.some((v,i)=>Number(v)!==Number(b.horizons[i])))return false;
+ return a.scenario==='forward'?Number(a.monthly)===Number(b.monthly):Number(a.target)===Number(b.target)&&a.basis===b.basis;
+}
+function syncDirty(message='Параметры изменены — нажмите «Пересчитать»'){
+ const current=readFields();
+ if(state.result&&modelParamsEqual(current,state.lastParams)){clearDirty();return;}
+ if(message.startsWith('Выбран другой сценарий')&&state.lastParams?.scenario===current.scenario)message='Параметры изменены — нажмите «Пересчитать»';
+ setDirty(message);
+}
+function setDirty(msg='Параметры изменены — нажмите «Пересчитать»'){state.dirty=true;if($('nextStep'))$('nextStep').textContent='Значения изменены. Проверьте остальные поля и нажмите «Пересчитать» — результат пока показывает прошлый вариант.';$('dirtyIndicator').classList.add('dirty');$('dirtyIndicator').textContent=msg;$('resultStatus').classList.add('await');$('resultStatus').innerHTML='● &nbsp; Результат ожидает пересчёта';renderReverseMonthly()}
+function clearDirty(){state.dirty=false;if($('nextStep'))$('nextStep').textContent='';$('dirtyIndicator').classList.remove('dirty');$('dirtyIndicator').textContent='';$('resultStatus').classList.remove('await');$('resultStatus').innerHTML='<span class="pulse-dot"></span> Расчёт готов';renderReverseMonthly()}
+function readFields(){let p=ownFields();for(const id of ['capital','monthly','target','contributionStop','withdrawalStart','rate','inflation','withdrawal'])p[id]=asNum($(id).value);p.horizons=Array.from(document.querySelectorAll('[data-h]'),e=>asNum(e.value));p.primaryHorizon=asNum($('primaryHorizon').value);p.risk=$('risk').value;return p}
+function validateParams(p){return DzenMath.calculate(p)}
+function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>$('toast').hidden=true,3900)}
+function updateFields(){for(const id of ['capital','monthly','target','contributionStop','withdrawalStart','rate','inflation','withdrawal'])$(id).value=state[id];document.querySelectorAll('[data-h]').forEach((el,i)=>el.value=state.horizons[i]);$('primaryHorizon').value=String(state.primaryHorizon);$('risk').value=state.risk;setScenarioUI();setBasisUI();}
+function renderReverseMonthly(){
+ const box=$('reverseMonthlyResult');if(!box)return;
+ box.hidden=state.scenario!=='reverse';if(box.hidden)return;
+ const current=state.result && state.lastParams && state.lastParams.scenario==='reverse' && !state.dirty;
+ $('reverseMonthlyValue').textContent=current?usd(state.result.monthly,2)+' / мес.':'—';
+ $('reverseMonthlyNote').textContent=current?`До конца ${state.lastParams.contributionStop}-го года; при заданных условиях расчёта.`:'Нажмите «Пересчитать», чтобы узнать необходимый взнос.';
+}
+function setScenarioUI(){const reverse=state.scenario==='reverse';$('scenarioForward').classList.toggle('active',!reverse);$('scenarioForward').setAttribute('aria-pressed',!reverse);$('scenarioReverse').classList.toggle('active',reverse);$('scenarioReverse').setAttribute('aria-pressed',reverse);$('monthlyField').hidden=reverse;$('targetField').hidden=!reverse;$('basisField').hidden=!reverse;$('primaryField').hidden=!reverse;$('scenarioDescription').textContent=reverse?'Назовите желаемый доход и главный срок. Необходимое ежемесячное пополнение появится ниже.':'Укажите начальную сумму и ежемесячные взносы. Увидите капитал и ориентир дохода на трёх сроках.';$('reverseMonthlyResult').hidden=!reverse;renderReverseMonthly()}
+function setBasisUI(){document.querySelectorAll('[data-basis]').forEach(btn=>{const on=btn.dataset.basis===state.basis;btn.classList.toggle('active',on);btn.setAttribute('aria-pressed',on)})}
+function recalculate(record=true){clearError();const p=readFields();let res;try{res=validateParams(p)}catch(e){error(e.message);toast('Проверьте данные в левой панели');return false}Object.assign(state,p);state.result=res;state.lastParams=structuredClone(p);clearDirty();renderAll();if(record){state.history.unshift({id:String(Date.now())+'-'+Math.floor(Math.random()*1000),at:new Date().toISOString(),saved:false,params:structuredClone(p),summary:{nominal:res.rows[res.primaryIndex].nominal,monthly:res.monthly,year:res.primaryYear}});state.history=state.history.slice(0,12);renderHistory();addAssistant(p.scenario==='forward'?`Пересчитал: на ${res.primaryYear}-м году условный капитал составит ${usd(res.rows[res.primaryIndex].nominal)}. Хотите сравнить другой сценарий или обсудить параметры?`:`При выбранной цели потребуется приблизительно ${usd(res.monthly,2)} ежемесячно. Это расчёт при заданных условиях, не гарантия результата.`)}persist();return true}
+function addAssistant(text){state.chat.push({role:'assistant',text});state.chat=state.chat.slice(-40);renderChat();persist()}
+function addUser(text){state.chat.push({role:'user',text});state.chat=state.chat.slice(-40);renderChat()}
+function renderAll(){const r=state.result;if(!r)return;renderSummary();renderCards();renderCapitalChart();renderComposition();renderIncome();renderContrib();renderPortfolio();renderHistory();renderChat();}
+function renderSummary(){
+ const r=state.result,p=state.lastParams;
+ $('resultSummary').textContent=p.scenario==='forward'?`Начальный капитал ${usd(p.capital)}, пополнение ${usd(r.monthly)} до ${p.contributionStop}-го года. Выплаты начинаются после ${p.withdrawalStart}-го года. Три горизонта: ${p.horizons.join(', ')} лет.`:`Для условного дохода ${usd(p.target)}/мес. ${p.basis==='real'?'в сегодняшней покупательной способности':'в долларах целевого года'} к ${r.primaryYear}-му году нужно пополнять по ${usd(r.monthly,2)} до ${p.contributionStop}-го года. Целевой капитал — ${usd(r.targetCapital)}.`;
+ renderReverseMonthly();
+}
+function renderCards(){const p=state.lastParams,r=state.result;$('horizonCards').innerHTML=r.rows.map((row,i)=>`<article class="horizon-card ${i===r.primaryIndex?'primary':''}"><div class="horizon-label"><span>ЧЕРЕЗ ${row.year} ${yearWord(row.year).toUpperCase()}</span>${i===r.primaryIndex?'<span class="horizon-badge">ОПОРНЫЙ СРОК</span>':''}</div><div class="horizon-values"><div class="horizon-nominal"><div class="horizon-big">${usd(row.nominal)}</div><div class="horizon-small">Капитал · будущие $</div></div><div class="horizon-today"><span>В сегодняшних $</span><strong>${usd(row.real)}</strong></div></div><hr class="horizon-divider"><div class="horizon-income">${usd(row.realIncome)} <small>в месяц</small></div><div class="horizon-small">Ориентир выплат · в сегодняшних $</div></article>`).join('')}
+function chartScale(values,w,h,pad,maxy){const x=t=>pad.l+t*(w-pad.l-pad.r);const y=v=>h-pad.b-v/maxy*(h-pad.t-pad.b);return{x,y}}
+function pathPoints(data,x,y,field,maxMonth){return data.map(d=>`${x(d.month/maxMonth).toFixed(2)},${y(d[field]).toFixed(2)}`).join(' ')}
+function plotFrame(traces,opts={}){
+ const r=state.result,p=state.lastParams,maxM=r.plotMonths;
+ const compact=window.innerWidth<1590,w=compact?740:940,h=compact?310:320;
+ const pad={l:compact?84:92,r:compact?18:26,t:51,b:45};
+ const maxY=Math.max(1,...traces.flatMap(t=>t.map(v=>v.value)))*1.14;
+ const x=m=>pad.l+m/maxM*(w-pad.l-pad.r),y=v=>h-pad.b-v/maxY*(h-pad.t-pad.b);
+ const axes=[0,.25,.5,.75,1].map(f=>`<line x1="${pad.l}" x2="${w-pad.r}" y1="${y(maxY*f)}" y2="${y(maxY*f)}" stroke="#e0e9e1"/><text x="${pad.l-9}" y="${y(maxY*f)+4}" text-anchor="end" class="axis-label">${nice(maxY*f)}</text>`).join('');
+ const maxYear=Math.ceil(r.plotYears),tickStep=r.plotYears<=15?2:r.plotYears<=30?5:10;
+ const tickYears=[...new Set([0,...Array.from({length:Math.floor(r.plotYears/tickStep)},(_,i)=>(i+1)*tickStep),r.plotYears])].sort((a,b)=>a-b);
+ const ticks=tickYears.map(t=>`<text x="${x(t*12)}" y="${h-8}" text-anchor="middle" class="axis-label">${Number.isInteger(t)?t:t.toFixed(1)} г.</text>`).join('');
+ const primary=traces[opts.primaryIndex??0]?.map(x=>x.value)??[];
+ const horizons=p.horizons.map((year,i)=>{
+   const m=year*12,pos=x(m),value=primary[m]??0,py=y(value);
+   const title=`${i+1}-й горизонт: ${year} лет, ${usd(value)}`;
+   const vertical=`<line x1="${pos}" x2="${pos}" y1="${pad.t}" y2="${h-pad.b}" stroke="#658f75" stroke-opacity=".52" stroke-dasharray="3 6"/>`;
+   const dot=`<circle cx="${pos}" cy="${py}" r="5.5" stroke="#fff" stroke-width="2" fill="#287c58"><title>${title}</title></circle>`;
+   const textY=Math.max(pad.t+14,py-13);
+   const label=`<text x="${pos}" y="${textY}" text-anchor="middle" class="horizon-plot-label">${year} г.</text>`;
+   return vertical+dot+label;
+ }).join('');
+ const eventConfig=[{year:p.contributionStop,short:'Конец взносов',color:'#be8150',dy:14},{year:p.withdrawalStart,short:'Начало выплат',color:'#9c6f91',dy:32}];
+ const regions=eventConfig.map((e,i)=>`<rect x="${x(e.year*12)}" y="${pad.t}" width="${Math.max(0,x(maxM)-x(e.year*12))}" height="${h-pad.t-pad.b}" fill="${e.color}" opacity="${i?'.06':'.035'}"/>`).join('');
+ const events=regions+eventConfig.map((e,i)=>`<line x1="${x(e.year*12)}" x2="${x(e.year*12)}" y1="${pad.t}" y2="${h-pad.b}" stroke="${e.color}" stroke-width="1.3" stroke-dasharray="6 5"/><circle cx="${x(e.year*12)}" cy="${pad.t}" r="3.5" fill="${e.color}"><title>${e.short}: после ${e.year} лет</title></circle>`).join('');
+ const eventNote=`<span class="timeline-key"><i class="event-swatch stop"></i>Взносы до ${p.contributionStop} г.</span><span class="timeline-key"><i class="event-swatch payout"></i>Выплаты после ${p.withdrawalStart} г.</span><span class="timeline-key subtle">График до ${r.plotYears.toLocaleString('ru-RU',{maximumFractionDigits:1})} г. (+20%)</span>`;
+ return {r,p,maxM,w,h,pad,x,y,axes,ticks,horizons,events,eventNote};
+}
+function renderPlot(series,opts={}){
+ const data=series.map(s=>s.values.map((value,month)=>({month,value}))),f=plotFrame(data,opts);
+ const defs='<defs><linearGradient id="fillCap23" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#73c6a1" stop-opacity=".17"/><stop offset="1" stop-color="#73c6a1" stop-opacity="0"/></linearGradient></defs>';
+ const paths=series.map((series,i)=>`<polyline points="${data[i].map(d=>f.x(d.month).toFixed(2)+','+f.y(d.value).toFixed(2)).join(' ')}" fill="none" stroke="${series.color}" stroke-width="${i===0?3.5:2.4}" ${series.dash?`stroke-dasharray="${series.dash}"`:''} stroke-linecap="round" stroke-linejoin="round"/>`).join('');
+ const sv=`<svg viewBox="0 0 ${f.w} ${f.h}" role="img" aria-label="${opts.label||'Динамика инвестиционного плана'} до ${f.r.plotYears} лет">${defs}${f.axes}${f.events}${paths}${f.horizons}${f.ticks}<line id="hoverLine" x1="0" x2="0" y1="${f.pad.t}" y2="${f.h-f.pad.b}" stroke="#357553" stroke-opacity=".7" visibility="hidden"/><circle id="hoverDot" cx="0" cy="0" r="5" fill="#2a815a" visibility="hidden"/></svg>`;
+ $('capitalChart').innerHTML=sv;
+ $('capitalLegend').innerHTML=series.map(a=>`<span><i class="legend-line" style="border-top-color:${a.color};${a.dash?'border-top-style:dashed;':''}"></i> ${a.label}</span>`).join('')+`<span class="timeline-key-row">${f.eventNote}</span>`;
+ const svg=$('capitalChart').querySelector('svg');
+ svg.onpointermove=ev=>{const b=svg.getBoundingClientRect(),pos=(ev.clientX-b.left)/b.width*f.w,ratio=Math.max(0,Math.min(1,(pos-f.pad.l)/(f.w-f.pad.l-f.pad.r))),i=Math.max(0,Math.min(f.maxM,Math.round(ratio*f.maxM)));
+   $('hoverLine').setAttribute('x1',f.x(i));$('hoverLine').setAttribute('x2',f.x(i));$('hoverLine').setAttribute('visibility','visible');$('hoverDot').setAttribute('cx',f.x(i));$('hoverDot').setAttribute('cy',f.y(series[0].values[i]));$('hoverDot').setAttribute('visibility','visible');
+   $('chartHover').textContent=`${(i/12).toLocaleString('ru-RU',{maximumFractionDigits:1})} г. · ${usd(series[0].values[i])}`;
+ };
+ svg.onpointerleave=()=>{$('hoverLine').setAttribute('visibility','hidden');$('hoverDot').setAttribute('visibility','hidden');$('chartHover').textContent='Наведите на график'};
+}
+function renderCapitalChart(){
+ if(state.chartView==='sensitivity')return renderSensitivityChart();
+ const t=state.result.traces;
+ renderPlot([{label:'Капитал · будущие $',color:'#247c53',values:t.map(q=>q.nominal)},
+ {label:'Капитал · сегодняшние $',color:'#b48035',dash:'7 5',values:t.map(q=>q.real)},
+ {label:'Сумма всех взносов',color:'#748fa1',dash:'2 6',values:t.map(q=>q.own)}],{label:'Капитал, собственные взносы и события на временной шкале'});
+}
+function renderSensitivityChart(){
+ const p=state.lastParams,r=state.result,rates=[Math.max(-90,p.rate-5),p.rate,Math.min(100,p.rate+5)],colors=['#7897a5','#247c53','#b48035'];
+ const samples=rates.map(rate=>DzenMath.simulate(p.capital,r.monthly,p,rate,r.plotMonths).map(x=>x.nominal));
+ renderPlot(rates.map((rate,i)=>({label:`${rate.toLocaleString('ru-RU')}% годовых`,color:colors[i],dash:i===1?null:'6 5',values:samples[i]})),{label:'Влияние условных ставок доходности на капитал',primaryIndex:1});
+ $('chartHover').textContent='Доходность · сравнение без вероятностей';
+}
+function renderComposition(){
+ const r=state.result,row=r.rows[r.primaryIndex],ownNet=row.own-row.withdrawn,earned=row.nominal-ownNet,posOwn=Math.max(0,ownNet),posEarned=Math.max(0,earned),total=Math.max(1,posOwn+posEarned),p1=Math.max(0,Math.min(100,posOwn/total*100));
+ $('compositionHorizon').textContent=`Через ${r.primaryYear} лет`;
+ $('compositionChart').innerHTML=`<div class="composition-bar" aria-label="Остаток вложений ${usd(ownNet)}, условный инвестиционный результат ${usd(earned)}"><div style="width:${p1}%;background:#70c5a0"></div><div style="width:${100-p1}%;background:#e5c58b"></div></div><div class="bar-legend"><div class="bar-legend-item"><i style="background:#70c5a0"></i> Взносы минус выплаты<b>${ownNet<0?'−'+usd(-ownNet):usd(ownNet)}</b></div><div class="bar-legend-item"><i style="background:#e5c58b"></i> ${earned<0?'Условное уменьшение':'Условный прирост'}<b>${earned<0?'−'+usd(-earned):usd(earned)}</b></div></div>${row.withdrawn>0?`<p class="timeline-composition-note">Из капитала уже изъято ${usd(row.withdrawn)} за период; изъятия учитываются отдельно от инвестиционного результата.</p>`:''}`;
+ if(ownNet<0 || earned<0)$('compositionChart').insertAdjacentHTML('beforeend','<p class="micro-note">Отрицательную часть невозможно отразить шириной полосы; точные суммы приведены ниже неё.</p>');
+}
+function renderIncome(){
+ const r=state.result,p=state.lastParams,t=r.traces,w=740,h=310,l=88,rr=23,top=35,b=43,maxM=r.plotMonths;
+ const maxY=Math.max(1,...t.map(x=>x.nominal*p.withdrawal/100/12),...t.map(x=>x.paid))*1.17;
+ const x=m=>l+m/maxM*(w-l-rr),y=v=>h-b-v/maxY*(h-b-top);
+ const axes=[0,.25,.5,.75,1].map(f=>`<line x1="${l}" x2="${w-rr}" y1="${y(maxY*f)}" y2="${y(maxY*f)}" stroke="#e1eae3"/><text x="${l-8}" y="${y(maxY*f)+4}" text-anchor="end" fill="#47644e" font-size="13">${nice(maxY*f)}</text>`).join('');
+ const line=(field,color,dash='')=>`<polyline points="${t.map(q=>`${x(q.month).toFixed(2)},${y(field(q)).toFixed(2)}`).join(' ')}" fill="none" stroke="${color}" stroke-width="3" ${dash?`stroke-dasharray="${dash}"`:''}/>`;
+ const markers=p.horizons.map(year=>{const q=t[year*12];return `<line x1="${x(q.month)}" x2="${x(q.month)}" y1="${top}" y2="${h-b}" stroke="#8bac95" stroke-dasharray="3 5"/><circle cx="${x(q.month)}" cy="${y(q.nominal*p.withdrawal/100/12)}" r="5" fill="#267953" stroke="white" stroke-width="2"/><text x="${x(q.month)}" y="${Math.max(top+13,y(q.nominal*p.withdrawal/100/12)-11)}" text-anchor="middle" font-size="13" font-weight="700" fill="#1e6442">${year} г.</text>`}).join('');
+ const events=[p.contributionStop,p.withdrawalStart].map((yr,i)=>`<line x1="${x(yr*12)}" x2="${x(yr*12)}" y1="${top}" y2="${h-b}" stroke="${i?'#99709a':'#be8751'}" stroke-dasharray="6 5"/>`).join('');
+ const ticks=[0,...p.horizons,r.plotYears].sort((a,b)=>a-b).filter((x,i,a)=>a.indexOf(x)===i).map(yr=>`<text x="${x(yr*12)}" y="${h-7}" text-anchor="middle" font-size="12" fill="#486450">${yr.toLocaleString('ru-RU',{maximumFractionDigits:1})} г.</text>`).join('');
+ $('incomeChart').innerHTML=`<svg viewBox="0 0 ${w} ${h}" class="income-timeline" role="img" aria-label="Условный месячный доход и фактические модельные выплаты на временной шкале">${axes}${events}${line(q=>q.nominal*p.withdrawal/100/12,'#267953')}${line(q=>q.paid,'#a67840','6 5')}${markers}${ticks}</svg><div class="chart-legend"><span><i class="legend-line" style="border-color:#267953"></i> Ориентир дохода по капиталу</span><span><i class="legend-line" style="border-color:#a67840;border-top-style:dashed"></i> Фактические модельные выплаты</span></div><p class="timeline-composition-note">Выплаты начинаются после ${p.withdrawalStart}-го года. До этого график показывает только потенциальный ориентир.</p>`;
+}
+function renderContrib(){
+ const r=state.result,p=state.lastParams,t=r.traces,w=740,h=310,l=88,rr=23,top=38,b=43,maxM=r.plotMonths,max=Math.max(1,...t.flatMap(x=>[x.own,x.withdrawn]))*1.15;
+ const x=m=>l+m/maxM*(w-l-rr),y=v=>h-b-v/max*(h-b-top);
+ const axes=[0,.25,.5,.75,1].map(f=>`<line x1="${l}" x2="${w-rr}" y1="${y(max*f)}" y2="${y(max*f)}" stroke="#e2eae5"/><text x="${l-8}" y="${y(max*f)+4}" text-anchor="end" fill="#45634f" font-size="13">${nice(max*f)}</text>`).join('');
+ const line=(fn,color,dash='')=>`<polyline points="${t.map(v=>x(v.month).toFixed(1)+','+y(fn(v)).toFixed(1)).join(' ')}" fill="none" stroke="${color}" stroke-width="3.2" ${dash?`stroke-dasharray="${dash}"`:''}/>`;
+ const markers=p.horizons.map(yr=>{const a=t[yr*12];return `<line x1="${x(a.month)}" x2="${x(a.month)}" y1="${top}" y2="${h-b}" stroke="#8ba996" stroke-dasharray="3 5"/><circle cx="${x(a.month)}" cy="${y(a.own)}" r="5" fill="#267953" stroke="white" stroke-width="2"/><text x="${x(a.month)}" y="${Math.max(top+13,y(a.own)-12)}" font-size="13" font-weight="700" fill="#205c41" text-anchor="middle">${yr} г.</text>`}).join('');
+ const ticks=[0,...p.horizons,r.plotYears].sort((a,b)=>a-b).filter((v,i,a)=>a.indexOf(v)===i).map(yr=>`<text x="${x(yr*12)}" y="${h-7}" text-anchor="middle" font-size="12" fill="#45644e">${yr.toLocaleString('ru-RU',{maximumFractionDigits:1})} г.</text>`).join('');
+ const events=[p.contributionStop,p.withdrawalStart].map((yr,i)=>`<line x1="${x(yr*12)}" x2="${x(yr*12)}" y1="${top}" y2="${h-b}" stroke="${i?'#99709a':'#be8751'}" stroke-dasharray="6 5"/>`).join('');
+ $('contributionChart').innerHTML=`<svg viewBox="0 0 ${w} ${h}" class="income-timeline" role="img" aria-label="Взносы и выплаты за ${r.plotYears} лет">${axes}${events}${line(q=>q.own,'#267953')}${line(q=>q.withdrawn,'#a67840','6 5')}${markers}${ticks}</svg><div class="chart-legend"><span><i class="legend-line" style="border-color:#267953"></i> Совокупные взносы</span><span><i class="legend-line" style="border-color:#a67840;border-top-style:dashed"></i> Изъято из капитала</span></div><p class="timeline-composition-note">Сумма всех взносов прекращает расти после ${p.contributionStop}-го года; выплаты начинаются после ${p.withdrawalStart}-го года.</p>`;
+}
+function renderPortfolio(){const items=[['Акции',50,'#6cc9a0'],['Облигации',30,'#b3d2ae'],['Денежные активы',15,'#d2bb82'],['Золото',5,'#648c9d']];$('portfolioChart').innerHTML=`<div class="portfolio-row"><div class="donut" role="img" aria-label="Учебный пример структуры: акции 50 процентов, облигации 30, денежные активы 15, золото 5"></div><div class="portfolio-labels">${items.map(([title,pct,color])=>`<span><i style="background:${color}"></i>${title} <b>${pct}%</b></span>`).join('')}</div></div>`}
+function renderHistory(){$('historyCount').textContent=state.history.length+' записей';$('historyItems').innerHTML=state.history.length?state.history.map(item=>`<div class="history-item"><div class="info"><strong>${item.saved?'★ ':''}${item.params.scenario==='forward'?'Что получится':'Путь к цели'} · ${esc(item.summary.year)} лет</strong>${new Date(item.at).toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})} · ${usd(item.summary.nominal)}${item.params.scenario==='reverse'?' · взнос '+usd(item.summary.monthly,2):''}</div><button type="button" data-restore="${esc(item.id)}">Вернуть</button></div>`).join(''):'<div class="micro-note">Нажмите «Пересчитать» или «Сохранить вариант», чтобы зафиксировать первый расчёт.</div>'}
+function renderChat(){const node=$('assistantThread');const oldScroll=node.scrollTop;const atBottom=node.scrollHeight-node.scrollTop-node.clientHeight<30;node.innerHTML='';for(const m of state.chat.slice(-25)){const div=document.createElement('div');div.className='bubble '+(m.role==='user'?'user':'assistant');const who=document.createElement('span');who.className='who';who.textContent=m.role==='user'?'ВЫ':'DZEN · ЛОКАЛЬНЫЙ ПОМОЩНИК';div.append(who,document.createTextNode(m.text));node.append(div)}if(atBottom)node.scrollTop=node.scrollHeight;else node.scrollTop=oldScroll}
+function nextStepText(){if(state.dirty)return 'Сейчас следующий шаг — нажмите «Пересчитать», чтобы увидеть результат для новых значений.';return state.scenario==='forward'?'Следующий шаг — оцените результат на трёх сроках. При желании измените сумму или условия, затем нажмите «Пересчитать».':'Следующий шаг — сравните необходимое пополнение со своими возможностями. Измените цель, срок или условия и нажмите «Пересчитать».'}
+const introInfo=()=>({value:usd(100000),text:'Начальная сумма для условного инвестиционного плана',bar:17,foot:'Эти $100 000 уже есть в начале учебного примера'});
+function assistantReply(q){
+ const text=q.toLowerCase().replaceAll('ё','е'),p=state.lastParams||ownFields(),r=state.result;
+ const finish='\n\n'+nextStepText(),contains=(...a)=>a.some(w=>text.includes(w));
+ const answer=message=>(state.dirty?'Поля изменены, но ещё не пересчитаны. Ниже — пояснение к последнему расчёту.\n\n':'')+message+finish;
+ const pct=n=>n.toLocaleString('ru-RU',{maximumFractionDigits:10});
+ if(contains('что дальше','что вводить','что теперь вводить','следующий','как начать','вернуть','продолж'))return nextStepText();
+ if(contains('налог','комисс','гарант','точност','достовер','условны'))return answer('Это автономный учебный расчёт: комиссии, налоги, колебания рынка и вероятность результата не моделируются. Изъятия после выбранного срока учитываются и уменьшают капитал. Суммы нельзя считать инвестиционным прогнозом или готовой стратегией.');
+ if(contains('риск','акци','облигац','структур'))return answer('Диаграмма структуры портфеля — лишь пример, а не предлагаемый портфель. Она не участвует в расчёте заданной доходности. Риск-профиль здесь записывается как пожелание и не увеличивает ожидаемый результат автоматически.');
+ if(contains('почему 4','4%','изъят','выплат','пассивн','дивиденд','купон','откуда доход','почему доход'))return answer(`В последнем расчёте доля выплат — ${pct(p.withdrawal)}% годовых. Это не доходность вложений и не гарантия сохранности капитала. Месячный ориентир на карточке: капитал × ${pct(p.withdrawal)}% ÷ 12; в сегодняшних долларах он скорректирован на инфляцию. Фактические модельные изъятия начинаются после ${p.withdrawalStart}-го года: каждый месяц после роста и возможного пополнения из текущего баланса вычитается ${pct(p.withdrawal)}% ÷ 12. Эти изъятия уменьшают капитал. График дохода показывает будущие номинальные доллары, а не гарантированные купоны или дивиденды.`);
+ if(contains('доходность','доходност','10%','процент роста','рост портфеля','рост вложений'))return answer(`В последнем расчёте рост вложений — ${pct(p.rate)}% эффективных годовых. Это предположение о полной инвестиционной доходности, а не обещание. Оно включает изменение стоимости и выплаты, если они реинвестируются. Месячный коэффициент роста — (1 + ${pct(p.rate)}% ) в степени 1/12. На практике результат может быть выше, ниже или отрицательным.`);
+ if(contains('инфляц','5%','покупательн','реальн','сегодняшн'))return answer(`В последнем расчёте инфляция — ${pct(p.inflation)}% в год. Будущая сумма пересчитывается в сегодняшние доллары делением на (1 + ${pct(p.inflation)}%) в степени числа лет. При положительной инфляции покупательная способность уменьшается, при нулевой не меняется, при отрицательной увеличивается.`);
+ if(contains('взнос','пополн','откладыва','2 000'))return answer(`В последнем расчёте пополнение — ${usd(r?r.monthly:p.monthly,2)} в месяц${p.scenario==='reverse'?' (рассчитано для выбранной цели)':''}. Оно поступает в конце месяца после роста, до конца ${p.contributionStop}-го года включительно; затем пополнения прекращаются. Новые взносы — собственные деньги, а не инвестиционная прибыль. Если прекратить их раньше, при прочих равных итоговый капитал будет меньше или останется тем же при нулевых взносах. В обратном сценарии необходимое пополнение рассчитывается заново после команды «Пересчитать».`);
+ if(contains('горизонт','срок'))return answer(`Горизонты последнего расчёта — ${p.horizons.join(', ')} лет. Карточки показывают одну траекторию в разные годы; главный горизонт — ${p.horizons[p.primaryHorizon]} лет. По нему определяется цель в обратном сценарии. График продлён на 20% за последний горизонт.`);
+ if(contains('капитал','100 000','начальн'))return answer('Начальный капитал — сумма, с которой начинается именно этот инвестиционный план. Это не обязательно всё имущество человека: ближайшие обязательные траты и резерв могут оставаться вне инвестируемой суммы.');
+ if(contains('цель','сценарий','сценарн','путь'))return answer('Есть два пути. «Что получится» рассчитывает будущий капитал при известных взносах. «Путь к цели» вычисляет, какой взнос нужен для выбранного ориентира месячной выплаты на главном горизонте. Для цели учитывается выбранная покупательная способность: сегодняшние или будущие доллары. Оба пути используют одну финансовую модель.');
+ if(contains('сколько','результат','через 10','через 5','через 3'))return answer(r?`Для последних рассчитанных параметров на ${r.primaryYear}-м году капитал — ${usd(r.rows[r.primaryIndex].nominal)} в будущих долларах, ориентир месячного дохода в сегодняшних долларах — ${usd(r.rows[r.primaryIndex].realIncome)}.`:'Нажмите «Пересчитать», чтобы увидеть результаты.');
+ return answer('Я — локальная справка по темам, а не свободный ИИ-диалог. Могу объяснить капитал, рост вложений, инфляцию, пополнения, долю выплат, цели и горизонты. Для сравнения другого варианта измените параметры и пересчитайте.');
+}
+function download(name,value){const blob=new Blob([JSON.stringify(value,null,2)],{type:'application/json;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1200)}
+function exportAll(){
+ if(state.dirty||!state.result||!modelParamsEqual(readFields(),state.lastParams)){
+   $('historyDialog').close();
+   toast('Экспорт черновика недоступен. Нажмите «Пересчитать», затем скачайте план.');
+   $('recalculate').focus();
+   return;
+ }
+ const info={product:'Dzen Finance · Лаборатория инвестиционного плана',version:APP_VERSION,exportedAt:new Date().toISOString(),use:'Только вымышленные данные',model:{annualEffective:true,contributions:'end-of-month',withdrawals:'monthly payout at withdrawal rate / 12 of current balance after specified start, reducing capital; deposits stop at specified year'},currentInputs:ownFields(),currentResult:state.result?{monthly:state.result.monthly,rows:state.result.rows,targetCapital:state.result.targetCapital}:null,history:state.history,localChat:state.chat};
+ download(`Dzen_Entry_Lab_0.2.5_Plan_${new Date().toISOString().slice(0,10)}.json`,info);
+}
+function restoreHistory(id){const item=state.history.find(x=>x.id===id);if(!item)return;Object.assign(state,structuredClone(item.params));updateFields();const res=DzenMath.calculate(item.params);state.lastParams=structuredClone(item.params);state.result=res;clearDirty();clearError();renderAll();persist();toast('Исторический расчёт восстановлен.');}
+function savePlan(){if(state.dirty){toast('Сначала нажмите «Пересчитать»');return}if(!state.history.length||JSON.stringify(state.history[0].params)!==JSON.stringify(state.lastParams)){const r=state.result;state.history.unshift({id:String(Date.now())+'-save',at:new Date().toISOString(),saved:true,params:structuredClone(state.lastParams),summary:{nominal:r.rows[r.primaryIndex].nominal,monthly:r.monthly,year:r.primaryYear}})}else state.history[0].saved=true;renderHistory();persist();toast('Вариант сохранён на этом устройстве.')}
+// 60-second guided tour. One current-input snapshot per paint, independent from published result.
+// Never replace an invalid draft with stale results or silently mutate confirmed calculations.
+const LESSON_DURATIONS=[8,8,9,9,9,8,9];
+const LESSON_CUTS=LESSON_DURATIONS.reduce((a,n)=>[...a,a[a.length-1]+n],[0]);
+const LESSON=[
+ {voice:'Начальный капитал',title:'1. Начальный капитал',focus:c=>'#capital',explain:c=>`Начальная сумма — деньги, которые вы включаете в этот план. Сейчас в поле указано ${usd(c.p.capital)}. Другие деньги, например резерв на ближайшие расходы, можно оставить за пределами плана.`,render:c=>`<div class="lesson-number">${usd(c.p.capital)}</div><div class="lesson-caption">Начальный капитал из поля слева</div><div class="lesson-mini-note">Здесь — ваша сумма, а не фиксированные $100 000 из примера.</div>`},
+ {voice:'Пополнение или цель',title:'2. Пополнение или финансовая цель',focus:c=>c.p.scenario==='reverse'?'#targetField':'#monthlyField',explain:c=>c.p.scenario==='reverse'?`Вы выбрали «Путь к цели». Сейчас в поле стоит желаемая ежемесячная выплата из капитала ${usd(c.p.target)}. На его основе программа рассчитывает взнос; это не обещание дохода.`:`В поле указано пополнение ${usd(c.p.monthly)} в месяц. Новые взносы — ваши собственные деньги, а не инвестиционная прибыль.`,render:c=>c.p.scenario==='reverse'?`<div class="lesson-number">${usd(c.p.target)} <small>/ мес.</small></div><div class="lesson-caption">Желаемая выплата из капитала</div><div class="lesson-mini-note">${c.r?`Требуемое пополнение: <strong>${usd(c.r.monthly,2)} / мес.</strong>`:'Сначала проверьте исходные параметры.'}</div>`:`<div class="lesson-number">${usd(c.p.monthly)} <small>/ мес.</small></div><div class="lesson-caption">Ваше пополнение до ${c.p.contributionStop}-го года</div><div class="lesson-mini-note">За первый год при действующих взносах: <strong>${usd(c.p.contributionStop>=1?c.p.monthly*12:0)}</strong>.</div>`},
+ {voice:'Три горизонта',title:'3. Три горизонта одного плана',focus:c=>'.horizon-inputs',explain:c=>`Три срока — ${c.p.horizons.map(x=>x+' '+yearWord(x)).join(', ')}. Все карточки показывают одну траекторию, но в разные годы. Слева задаются сроки, справа видны результаты.`,render:c=>c.r?`<div class="lesson-mini-heading">Будущий капитал по вашим значениям</div><div class="lesson-horizons">${c.r.rows.map((row,i)=>`<div class="lesson-horizon ${i===c.r.primaryIndex?'current':''}"><span>${row.year} ${yearWord(row.year)}</span><strong>${usd(row.nominal)}</strong></div>`).join('')}</div><div class="lesson-mini-note">В сегодняшних долларах: ${c.r.rows.map(row=>usd(row.real)).join(' · ')}</div>`:'<div class="lesson-error">Проверьте параметры для расчёта горизонтов.</div>'},
+ {voice:'Рост вложений и инфляция',title:'4. Рост вложений и инфляция',focus:c=>'.triple-params',explain:c=>`Здесь заданы условный рост вложений ${fmt(c.p.rate,1)}% в год и инфляция ${fmt(c.p.inflation,1)}% в год. Обе величины — выбранные условия расчёта, а не гарантии. Измените их, чтобы сравнить варианты.`,render:c=>`<div class="lesson-pair"><div><span>Рост вложений</span><strong>${fmt(c.p.rate,1)}%</strong></div><div><span>Инфляция</span><strong>${fmt(c.p.inflation,1)}%</strong></div></div><div class="lesson-mini-note">Сравнивайте будущую сумму с её покупательной способностью сегодня.</div>`},
+ {voice:'Из чего складывается капитал',title:'5. Из чего складывается капитал',focus:c=>'#capitalComposition',explain:c=>`На главном горизонте итог складывается из начальной суммы, пополнений и условного инвестиционного результата за вычетом уже предусмотренных изъятий. Эти части показаны в полосе над графиком.`,render:c=>c.r?(()=>{const t=c.r.traces[c.r.primaryYear*12],invest=t.nominal+t.withdrawn-t.own;const positive=Math.max(0,invest),own=Math.max(0,t.own),den=Math.max(1,own+positive);return `<div class="lesson-mini-heading">Через ${c.r.primaryYear} ${yearWord(c.r.primaryYear)}</div><div class="lesson-split"><i style="width:${(100*own/den).toFixed(1)}%"></i><b style="width:${(100*positive/den).toFixed(1)}%"></b></div><div class="lesson-breakdown"><span>Свои деньги: <strong>${usd(own)}</strong></span><span>Результат: <strong>${invest>=0?'+':'−'}${usd(Math.abs(invest))}</strong></span><span>Изъято: <strong>−${usd(t.withdrawn)}</strong></span><span>Капитал: <strong>${usd(t.nominal)}</strong></span></div>`})():'<div class="lesson-error">После исправления полей здесь появится структура капитала.</div>'},
+ {voice:'Доход из капитала',title:'6. Доход от капитала',focus:c=>'#withdrawal',explain:c=>`В расчёте указана доля выплат ${fmt(c.p.withdrawal,1)}% в год. Она позволяет оценить возможную месячную сумму, но не гарантирует купонов, дивидендов или сохранения капитала.`,render:c=>c.r?(()=>{const row=c.r.rows[c.r.primaryIndex];return `<div class="lesson-number">${usd(row.realIncome)} <small>/ мес.</small></div><div class="lesson-caption">Условный ориентир в сегодняшних долларах</div><div class="lesson-mini-note">Главный срок — ${row.year} ${yearWord(row.year)}. Начало фактических модельных изъятий — после ${c.p.withdrawalStart}-го года.</div>`})():'<div class="lesson-error">Уточните параметры: модель пока не рассчитана.</div>'},
+ {voice:'Диалог с Дзен',title:'7. Диалог с Dzen',focus:c=>'#assistantDock',explain:c=>`Справа открыт диалог с Dzen: здесь можно спросить, как получилась сумма и что означают параметры. Пока это локальная справка, а не подключённый ИИ. Она не меняет данные и не выполняет сделки.`,render:c=>`<div class="lesson-dialog-preview"><div class="lesson-mini-heading">Попробуйте спросить:</div><p>«Почему капитал в сегодняшних долларах меньше?»</p><p>«Что изменится, если прекратить взносы раньше?»</p></div><div class="lesson-mini-note">После обучения задайте вопрос в поле «Спросите о расчёте…» справа.</div>`}
+];
+const intro={playing:false,voice:false,elapsed:0,last:0,timer:null,sceneIndex:0};
+window.lessonElapsed=()=>intro.elapsed;
+window.lessonSceneIndex=()=>intro.sceneIndex;
+function lessonContext(){
+ const p=readFields();
+ try{return {p,r:DzenMath.calculate(p),error:null};}catch(e){return {p,r:null,error:e instanceof Error?e.message:String(e)}}
+}
+window.lessonFocusTarget=()=>LESSON[intro.sceneIndex]?.focus(lessonContext());
+function lessonIndex(elapsed){const t=Math.max(0,Math.min(59.999,elapsed));return LESSON_CUTS.findIndex((n,i)=>i<LESSON_DURATIONS.length && t>=n && t<LESSON_CUTS[i+1]);}
+function speechCancel(){try{window.speechSynthesis?.cancel()}catch{}}
+function speakIntro(){
+ speechCancel();
+ if(!intro.voice||!intro.playing||!('speechSynthesis' in window))return;
+ // Voice deliberately says the short topic only. The paragraph is visual, never spoken.
+ const utter=new SpeechSynthesisUtterance(LESSON[intro.sceneIndex].voice);
+ utter.lang='ru-RU';utter.rate=1.02;utter.volume=.9;
+ const voices=window.speechSynthesis.getVoices();const ru=voices.find(x=>x.lang?.toLowerCase().startsWith('ru'));if(ru)utter.voice=ru;
+ utter.onerror=()=>{$('introStatus').textContent='Озвучка недоступна; содержание остаётся на экране'};
+ window.speechSynthesis.speak(utter);
+}
+function showIntroScene(){
+ const scene=LESSON[intro.sceneIndex],ctx=lessonContext();
+ $('introTitle').textContent=scene.title;
+ $('introCopy').textContent=scene.explain(ctx);
+ $('introDraftNotice').hidden=!!(state.result&&modelParamsEqual(ctx.p,state.lastParams));
+ $('introExampleDisplay').innerHTML=scene.render(ctx)+(ctx.error?`<div class="lesson-error">Расчёт не готов: ${esc(ctx.error)}. На главном экране остаётся предыдущий результат до команды «Пересчитать».</div>`:'');
+ requestAnimationFrame(()=>window.updateLessonSpotlight?.());
+}
+function introPaint(){
+ const remain=Math.max(0,60-intro.elapsed);
+ const remainingSeconds=Math.ceil(remain);
+ $('introClock').textContent=String(Math.floor(remainingSeconds/60)).padStart(2,'0')+':'+String(remainingSeconds%60).padStart(2,'0');
+ $('introProgress').style.width=(intro.elapsed/60*100)+'%';
+ const i=lessonIndex(intro.elapsed);
+ if(i!==intro.sceneIndex){intro.sceneIndex=i;showIntroScene();speakIntro()}
+ $('introPlay').textContent=intro.playing?'❚❚ Пауза':intro.elapsed>=60?'↻ Пройти ещё раз':'▶ Пройти за минуту';
+ $('introVoice').textContent=intro.voice?'♬ Выключить голос':'♬ Озвучивать темы';
+ if(intro.playing)$('introStatus').textContent='Тема '+(intro.sceneIndex+1)+' из '+LESSON.length;
+ else $('introStatus').textContent=intro.elapsed>=60?'Введение завершено':'Можно пропустить';
+}
+function introTick(){if(!intro.playing)return;const now=performance.now();intro.elapsed+=Math.min(.65,(now-intro.last)/1000);intro.last=now;if(intro.elapsed>=60){intro.elapsed=60;intro.playing=false;clearInterval(intro.timer);intro.timer=null;speechCancel()}introPaint()}
+function startIntro(){if(intro.elapsed>=60)intro.elapsed=0;intro.playing=true;intro.last=performance.now();intro.sceneIndex=lessonIndex(intro.elapsed);showIntroScene();intro.timer=setInterval(introTick,180);introPaint();speakIntro()}
+function pauseIntro(){intro.playing=false;clearInterval(intro.timer);intro.timer=null;speechCancel();introPaint()}
+function showIntro(){state.introCollapsed=false;$('introRestore').hidden=true;document.querySelector('.intro').hidden=false;showIntroScene();persist()}
+function collapseIntro(){pauseIntro();state.introCollapsed=true;document.querySelector('.intro').hidden=true;$('introRestore').hidden=false;persist()}
+function initIntro(){intro.sceneIndex=0;showIntroScene();introPaint();if(state.introCollapsed)collapseIntro();else{document.querySelector('.intro').hidden=false;$('introRestore').hidden=true}}
+// Refresh lesson values from actual form controls, including unsaved edits. Never auto-confirm a calculation.
+document.addEventListener('input',e=>{if(e.target.matches('[data-field],[data-h]')&&$('lessonDialog')?.open)showIntroScene()});
+document.addEventListener('change',e=>{if(e.target.matches('[data-field],[data-h]')&&$('lessonDialog')?.open)showIntroScene()});
+function refreshPrimaryLabels(){const opts=$('primaryHorizon').options;state.horizons.forEach((year,i)=>{opts[i].textContent=`${i+1}-й горизонт · через ${year||'?'} лет`})}
+function wire(){
+ $('scenarioForward').addEventListener('click',()=>{state.scenario='forward';setScenarioUI();syncDirty('Выбран другой сценарий — нажмите «Пересчитать»');persist()});
+ $('scenarioReverse').addEventListener('click',()=>{state.scenario='reverse';setScenarioUI();syncDirty('Выбран другой сценарий — нажмите «Пересчитать»');persist()});
+ document.querySelectorAll('[data-basis]').forEach(b=>b.addEventListener('click',()=>{state.basis=b.dataset.basis;setBasisUI();syncDirty();persist()}));
+ document.querySelectorAll('[data-field]').forEach(el=>{el.addEventListener('input',()=>{state[el.id]=['risk'].includes(el.id)?el.value:asNum(el.value);if(el.id==='primaryHorizon')state.primaryHorizon=asNum(el.value);syncDirty();persist();clearError()});el.addEventListener('change',()=>{if(el.id==='risk'||el.id==='primaryHorizon'){state[el.id]=el.id==='risk'?el.value:asNum(el.value);syncDirty();persist()}})});
+ document.querySelectorAll('[data-h]').forEach(el=>el.addEventListener('input',()=>{state.horizons[asNum(el.dataset.h)]=asNum(el.value);refreshPrimaryLabels();syncDirty();persist();clearError()}));
+ const guidance={capital:'1. Начальный капитал — сумма, которую готовы включить именно в этот план. Не обязательно включать резерв или деньги на ближайшие траты.',monthly:'2. Ежемесячное пополнение — сколько готовы добавлять в конце каждого месяца. Если пополнений нет, оставьте 0.',target:'2. Сколько хотите ежемесячно получать из капитала: укажите сумму в долларах. Выберите покупательную способность: в сегодняшних или будущих долларах.',rate:'3. Заданный рост вложений за год — условие моделирования, не сумма, которую можно ежемесячно забирать. Поставьте другую ставку, чтобы сравнить.',inflation:'4. Заданная инфляция используется для сравнения покупательной способности будущих и сегодняшних долларов.',withdrawal:'5. Заданная годовая доля на выплаты — часть капитала, используемая для оценки ежемесячных выплат; это не годовая доходность вложений.',risk:'Отношение к риску пока сохраняется отдельно и не меняет прогноз. Для настоящего плана нужен более глубокий анализ.'};
+ document.querySelectorAll('input[data-field],select[data-field]').forEach(el=>el.addEventListener('focus',()=>{if($('nextStep'))$('nextStep').textContent=guidance[el.id]||'Проверьте параметр, затем пересчитайте результаты.'}));
+ document.querySelectorAll('[data-h]').forEach(el=>el.addEventListener('focus',()=>{if($('nextStep'))$('nextStep').textContent='Выберите три возрастающих срока. Они показывают одну траекторию капитала в разных точках будущего.'}));
+ 
+ document.querySelectorAll('[data-chart]').forEach(btn=>btn.addEventListener('click',()=>{state.chartView=btn.dataset.chart;document.querySelectorAll('[data-chart]').forEach(b=>{const active=b.dataset.chart===state.chartView;b.classList.toggle('active',active);b.setAttribute('aria-pressed',active)});renderCapitalChart()}));
+ $('recalculate').addEventListener('click',()=>recalculate(true));$('savePlan').addEventListener('click',savePlan);
+ $('exportButton').addEventListener('click',exportAll);
+ $('resetButton').addEventListener('click',()=>{if(!confirm('Очистить только данные этого отдельного макета и восстановить исходный пример? PERSONAL и CLUB не затрагиваются.'))return;try{[STORAGE_KEY,LEGACY_STORAGE_KEY,OLDER_STORAGE_KEY].forEach(k=>localStorage.removeItem(k))}catch{}Object.assign(state,{...options(),history:[],chat:[...initialConversation],result:null,lastParams:null,dirty:false,introCollapsed:false});updateFields();initIntro();recalculate(false);persist();toast('Локальный макет сброшен.')});
+ $('chatForm').addEventListener('submit',ev=>{ev.preventDefault();const q=$('chatInput').value.trim();if(!q)return;addUser(q);$('chatInput').value='';addAssistant(assistantReply(q));persist()});
+ document.querySelectorAll('[data-prompt]').forEach(btn=>btn.addEventListener('click',()=>{const q=btn.dataset.prompt;addUser(q);addAssistant(assistantReply(q))}));
+ document.querySelectorAll('[data-help]').forEach(btn=>btn.addEventListener('click',()=>{const topics={capital:'Что такое начальный капитал?',monthly:'Что означает ежемесячное пополнение?',income:'Как рассчитывается желаемая выплата из капитала?',horizons:'Что такое три горизонта?',assumptions:'Почему результаты расчёта являются условными?',rate:'Что означает рост вложений в год?',inflation:'Как инфляция влияет на результат?',withdrawal:'Что означает доля капитала на выплаты?',risk:'Как риск связан с доходностью?'};const q=topics[btn.dataset.help]||'Что означает этот параметр?';addUser(q);addAssistant(assistantReply(q))}));
+ $('historyItems').addEventListener('click',ev=>{const b=ev.target.closest('[data-restore]');if(b)restoreHistory(b.dataset.restore)});
+ $('introPlay').addEventListener('click',()=>intro.playing?pauseIntro():startIntro());$('introVoice').addEventListener('click',()=>{intro.voice=!intro.voice;if(intro.voice&&(!('speechSynthesis'in window))){intro.voice=false;toast('Синтез речи недоступен в этом браузере')}else if(intro.playing)speakIntro();else speechCancel();introPaint()});$('introSkip').addEventListener('click',collapseIntro);$('introReopen').addEventListener('click',showIntro);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden&&intro.playing)pauseIntro()});
+}
+function init(){load();wire();updateFields();refreshPrimaryLabels();initIntro();const target=state.lastParams||options();try{state.result=DzenMath.calculate(target);state.lastParams=structuredClone(target)}catch{state.result=DzenMath.calculate(options());state.lastParams=options()}renderAll();syncDirty('Восстановлен черновик: нажмите «Пересчитать»');persist()}
+window.DzenLab={math:DzenMath,read:()=>structuredClone({inputs:ownFields(),result:state.result,history:state.history,dirty:state.dirty}),recalculate:()=>recalculate(true)};
+init();
+</script>
+<script>
+(()=>{
+ 'use strict';
+ const byId=id=>document.getElementById(id);
+ const dialogs=['lessonDialog','historyDialog'];
+
+ function showInlineAssistant(focus=true){
+   const el=byId('assistantDock');el.scrollIntoView({behavior:'smooth',block:'nearest'});
+   el.classList.add('attention');setTimeout(()=>el.classList.remove('attention'),700);
+   if(focus)setTimeout(()=>byId('chatInput')?.focus(),100);
+ }
+ function updateLessonSpotlight(){
+   const d=byId('lessonDialog'),halo=byId('lessonSpotlight');
+   if(!d.open){halo.hidden=true;return;}
+   const key=window.lessonFocusTarget?.()||'#capital';
+   const el=document.querySelector(key);
+   if(!el||el.hidden){halo.hidden=true;return;}
+   const holder=el.closest('.field')||el;
+   let rect=holder.getBoundingClientRect();
+   if(!rect.width||!rect.height){rect=el.getBoundingClientRect();}
+   const scroller=holder.closest('.center-panel,.controls-scroll');
+   if(scroller&&(rect.bottom>innerHeight-65||rect.top<108)){
+     const before=scroller.scrollTop;
+     scroller.scrollTop+=rect.bottom>innerHeight-65?rect.bottom-(innerHeight-65):rect.top-118;
+     if(Math.abs(scroller.scrollTop-before)>1){requestAnimationFrame(updateLessonSpotlight);return;}
+   }
+   if(rect.right<0||rect.left>innerWidth||rect.bottom<0||rect.top>innerHeight){halo.hidden=true;return;}
+   const pad=7;halo.hidden=false;
+   halo.style.left=Math.max(2,rect.left-pad)+'px';
+   halo.style.top=Math.max(2,rect.top-pad)+'px';
+   halo.style.width=Math.max(48,Math.min(innerWidth-4,rect.width+2*pad))+'px';
+   halo.style.height=Math.max(44,Math.min(innerHeight-4,rect.height+2*pad))+'px';
+   // Keep lesson text away from the highlighted region where possible.
+   d.classList.toggle('lesson-at-left',rect.left>innerWidth*.47);
+ }
+ window.updateLessonSpotlight=updateLessonSpotlight;
+ window.addEventListener('resize',()=>requestAnimationFrame(updateLessonSpotlight));
+ document.querySelector('.controls-scroll')?.addEventListener('scroll',()=>requestAnimationFrame(updateLessonSpotlight));
+ document.querySelector('.center-panel')?.addEventListener('scroll',()=>requestAnimationFrame(updateLessonSpotlight));
+
+ const activeTab=tab=>{
+   byId('capitalChart').hidden=tab==='income'||tab==='contrib';
+   byId('capitalLegend').hidden=tab==='income'||tab==='contrib';
+   byId('largeIncomeView').hidden=tab!=='income';
+   byId('largeContribView').hidden=tab!=='contrib';
+   byId('chartHover').hidden=tab==='income'||tab==='contrib';
+   document.querySelectorAll('[data-display]').forEach(b=>{
+     const on=b.dataset.display===tab;
+     b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on));
+   });
+ };
+ document.querySelectorAll('[data-display]').forEach(b=>b.addEventListener('click',()=>activeTab(b.dataset.display)));
+ activeTab('capital');
+ function openDialog(id,focusId){
+   const d=byId(id);if(!d.open)d.showModal();
+   if(focusId)setTimeout(()=>byId(focusId)?.focus(),0);
+ }
+ byId('openAssistant').addEventListener('click',()=>showInlineAssistant());
+ byId('helpInlineOpen').addEventListener('click',()=>showInlineAssistant());
+ byId('openHistory').addEventListener('click',()=>openDialog('historyDialog'));
+ byId('openLesson').addEventListener('click',()=>{byId('introReopen').click();const d=byId('lessonDialog');if(!d.open)d.show();requestAnimationFrame(updateLessonSpotlight)});
+ byId('closeLesson').addEventListener('click',()=>{byId('introSkip').click();byId('lessonDialog').close()});
+ byId('introSkip').addEventListener('click',()=>{if(byId('lessonDialog').open)byId('lessonDialog').close()});
+ byId('lessonDialog').addEventListener('close',()=>{byId('lessonSpotlight').hidden=true;if(!document.querySelector('.intro').hidden)byId('introSkip').click()});
+ document.querySelectorAll('[data-close-dialog]').forEach(b=>b.addEventListener('click',()=>byId(b.dataset.closeDialog).close()));
+ for(const id of dialogs){
+   const d=byId(id);
+   d.addEventListener('click',ev=>{if(ev.target===d)d.close()});
+ }
+ document.querySelectorAll('[data-help]').forEach(b=>b.addEventListener('click',()=>showInlineAssistant(false)));
+ // Returning to a saved calculation closes the history drawer to make the updated cards immediately visible.
+ byId('historyItems').addEventListener('click',ev=>{if(ev.target.closest('[data-restore]'))byId('historyDialog').close()});
+ // Initial lesson stays tucked away. The one-minute introduction remains available from the header.
+ // The original intro state, timers, speech and storage code remain unmodified.
+})();
+</script>
+<script>
+(()=>{
+ 'use strict';
+ const tip=document.createElement('div');tip.id='floatingTip023';tip.hidden=true;tip.setAttribute('role','tooltip');document.body.append(tip);
+ let active=null;
+ function place(){if(!active)return;const a=active.getBoundingClientRect();if(!a.width)return;const width=Math.min(315,innerWidth-22);tip.style.width=width+'px';const r=tip.getBoundingClientRect();const left=Math.max(10,Math.min(innerWidth-r.width-10,a.left+(a.width-r.width)/2));let top=a.top-r.height-9;if(top<60)top=a.bottom+10;top=Math.max(8,Math.min(top,innerHeight-r.height-8));tip.style.left=left+'px';tip.style.top=top+'px';}
+ function show(el){const text=el?.dataset?.tip;if(!text)return;active=el;tip.textContent=text;tip.hidden=false;requestAnimationFrame(place);}
+ function hide(el){if(active===el){active=null;tip.hidden=true;}}
+ document.querySelectorAll('.field-hint, .scenario[data-tip]').forEach(btn=>{btn.addEventListener('mouseenter',()=>show(btn));btn.addEventListener('mouseleave',()=>hide(btn));btn.addEventListener('focus',()=>show(btn));btn.addEventListener('blur',()=>hide(btn));btn.addEventListener('click',()=>hide(btn));});
+ window.addEventListener('resize',()=>requestAnimationFrame(place));document.addEventListener('scroll',()=>{if(active)place()},{capture:true,passive:true});
+})();
+</script>
+</body></html>
